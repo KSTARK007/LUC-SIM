@@ -1,0 +1,14 @@
+{
+  "num_threads": 1,
+  "num_replicas": 3,
+  "total_dataset_size": 100000,
+  "requests_per_thread": 10000000,
+  "cache_percentage": 0.33,
+  "rdma_enabled": true,
+  "enable_cba": true,
+  "cba_update_interval": 2000000,
+  "latency_local": 1,
+  "latency_rdma": 15,
+  "latency_disk": 200,
+  "workload_folder": "/vectordb1/ycsb/uniform/"
+}

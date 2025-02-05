@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/main.cpp.o -c /vectordb1/LDC_Cache_Sim/main.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/main.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/main.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/Replica.cpp.o -c /vectordb1/LDC_Cache_Sim/Replica.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/Replica.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/Replica.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/LRUCache.cpp.o -c /vectordb1/LDC_Cache_Sim/LRUCache.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/LRUCache.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/LRUCache.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/ReplicaManager.cpp.o -c /vectordb1/LDC_Cache_Sim/ReplicaManager.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/ReplicaManager.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/ReplicaManager.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/Metrics.cpp.o -c /vectordb1/LDC_Cache_Sim/Metrics.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/Metrics.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/Metrics.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/CostBenefitAnalyzer.cpp.o -c /vectordb1/LDC_Cache_Sim/CostBenefitAnalyzer.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/CostBenefitAnalyzer.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/CostBenefitAnalyzer.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/ConfigManager.cpp.o -c /vectordb1/LDC_Cache_Sim/ConfigManager.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/ConfigManager.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/ConfigManager.cpp.o"
+},
+{
+  "directory": "/vectordb1/LDC_Cache_Sim/build",
+  "command": "/usr/bin/c++ -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1  -std=gnu++17 -o CMakeFiles/CacheSimulator.dir/RequestProcessor.cpp.o -c /vectordb1/LDC_Cache_Sim/RequestProcessor.cpp",
+  "file": "/vectordb1/LDC_Cache_Sim/RequestProcessor.cpp",
+  "output": "CMakeFiles/CacheSimulator.dir/RequestProcessor.cpp.o"
+}
+]
