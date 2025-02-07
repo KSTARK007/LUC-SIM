@@ -15,6 +15,7 @@ private:
 
     bool isValidFileFormat(const std::string &filename);
     std::vector<std::pair<int, int>> loadRequestsFromFile(const std::string &file_path);
+    std::vector<std::pair<int, int>> loadRequestsFromTracesFile(const std::string &file_path);
 
 public:
     RequestProcessor(const std::string &folder);

@@ -7,21 +7,25 @@
 #include <string>
 #include <vector>
 
-std::vector<uint64_t> extract_keys(const std::string &filename, size_t total_keys = 100000)
+std::vector<uint64_t> extract_keys(const std::string &filename, size_t total_keys = 200000)
 {
     std::vector<uint64_t> keys;
     std::ifstream file(filename);
     uint64_t key;
     char node, op;
-    while (file >> key >> node >> op)
+    int count = 0;
+    // while (file >> key >> node >> op)
+    while (file >> key)
     {
+        if (count++ >= total_keys)
+            break;
         keys.push_back(key);
     }
     file.close();
     return keys;
 }
 
-std::vector<std::pair<uint64_t, std::string>> sort_keys_by_frequency(const std::vector<uint64_t> &keys)
+std::vector<std::pair<uint64_t, std::string>> sort_keys_by_frequency(const std::vector<uint64_t> &keys, size_t total_keys = 200000)
 {
     std::map<uint64_t, uint64_t> frequency;
     for (uint64_t key : keys)
@@ -37,7 +41,7 @@ std::vector<std::pair<uint64_t, std::string>> sort_keys_by_frequency(const std::
 
     std::sort(freq_vector.begin(), freq_vector.end(), std::greater<>());
 
-    for (uint64_t i = 1; i <= 100000; i++)
+    for (uint64_t i = 1; i <= total_keys; i++)
     {
         if (frequency.find(i) == frequency.end())
         {
@@ -48,23 +52,23 @@ std::vector<std::pair<uint64_t, std::string>> sort_keys_by_frequency(const std::
     return freq_vector;
 }
 
-std::vector<std::pair<uint64_t, uint64_t>> sum_cdf(const std::vector<std::pair<uint64_t, std::string>> &freq_vector, const std::string &filename)
+std::vector<std::pair<std::string, uint64_t>> sum_cdf(const std::vector<std::pair<uint64_t, std::string>> &freq_vector, const std::string &filename)
 {
 
     // std::ofstream file(filename);
     uint64_t total = 0, sum = 0;
-    std::vector<std::pair<uint64_t, uint64_t>> c_sum;
+    std::vector<std::pair<std::string, uint64_t>> c_sum;
 
     for (const auto &kv : freq_vector)
     {
         sum += kv.first;
-        c_sum.emplace_back(stoi(kv.second), sum);
+        c_sum.emplace_back(kv.second, sum);
     }
 
     return c_sum;
 }
 
-void print_cdf(const std::vector<std::pair<uint64_t, uint64_t>> &cdf)
+void print_cdf(const std::vector<std::pair<std::string, uint64_t>> &cdf)
 {
     for (const auto &kv : cdf)
     {
@@ -72,20 +76,58 @@ void print_cdf(const std::vector<std::pair<uint64_t, uint64_t>> &cdf)
     }
 }
 
-std::vector<std::pair<uint64_t, uint64_t>> load_workload(const std::string &filepath, const std::string &cdf_filename)
+std::vector<std::pair<std::string, uint64_t>> load_workload(const std::string &filepath, const std::string &cdf_filename, size_t dataset_size = 200000)
 {
+    std::cout << "Loading workload from: " << filepath << std::endl;
     auto keys = extract_keys(filepath);
     auto start = std::chrono::high_resolution_clock::now();
-    auto freq_vector = sort_keys_by_frequency(keys);
+    std::cout << "Extracted keys from file\n << Size of keys: " << keys.size() << std::endl;
+    auto freq_vector = sort_keys_by_frequency(keys, dataset_size);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Time taken to sort keys: " << elapsed.count() << "s\n";
     auto c_sum = sum_cdf(freq_vector, cdf_filename);
-    // print_cdf(c_sum);
+    std::cout << "Finished computing cdf\n"
+              << "Size of cdf: " << c_sum.size() << std::endl;
+    print_cdf(c_sum);
     return c_sum;
 }
 
-uint64_t get_sum_freq_till_index(const std::vector<std::pair<uint64_t, uint64_t>> &cdf, uint64_t start, uint64_t end)
+std::vector<std::pair<std::string, uint64_t>> load_sorted_cdf(const std::string &filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Unable to open file: " + filename);
+    }
+
+    std::vector<std::pair<uint64_t, std::string>> cdf;
+    std::string line, key;
+    uint64_t freq;
+
+    std::cout << "Loading cdf from: " << filename << std::endl;
+
+    while (std::getline(file, line))
+    {
+        size_t comma_pos = line.find(',');
+        if (comma_pos == std::string::npos)
+        {
+            throw std::runtime_error("Invalid line format: " + line);
+        }
+
+        key = line.substr(0, comma_pos);
+        freq = std::stoull(line.substr(comma_pos + 1));
+
+        // std::cout << key << " " << freq << std::endl;
+        cdf.emplace_back(freq, key);
+    }
+
+    file.close();
+    auto c_sum = sum_cdf(cdf, "hotspot_cdf.txt");
+    return c_sum;
+}
+
+uint64_t get_sum_freq_till_index(const std::vector<std::pair<std::string, uint64_t>> &cdf, uint64_t start, uint64_t end)
 {
     if (start >= cdf.size())
     {
@@ -104,7 +146,7 @@ uint64_t get_sum_freq_till_index(const std::vector<std::pair<uint64_t, uint64_t>
     return end_value - start_value;
 }
 
-uint64_t calculate_performance(const std::vector<std::pair<uint64_t, uint64_t>> &cdf, uint64_t water_mark_local, uint64_t water_mark_remote, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg)
+uint64_t calculate_performance(const std::vector<std::pair<std::string, uint64_t>> &cdf, uint64_t water_mark_local, uint64_t water_mark_remote, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg)
 {
     uint64_t total_local = get_sum_freq_till_index(cdf, 0, water_mark_local);
     uint64_t total_remote = get_sum_freq_till_index(cdf, water_mark_local, water_mark_local + water_mark_remote);
@@ -113,7 +155,7 @@ uint64_t calculate_performance(const std::vector<std::pair<uint64_t, uint64_t>> 
     return latency ? std::numeric_limits<uint64_t>::max() / latency : 0;
 }
 
-void find_optimal_access_rates(std::vector<std::pair<uint64_t, uint64_t>> &cdf, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size)
+void find_optimal_access_rates(std::vector<std::pair<std::string, uint64_t>> &cdf, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size)
 {
     uint64_t best_performance = 0, best_local = 0, best_remote = cache_size;
     for (uint64_t local = 0; local < cdf.size(); local++)
@@ -128,16 +170,19 @@ void find_optimal_access_rates(std::vector<std::pair<uint64_t, uint64_t>> &cdf, 
             best_local = local;
             best_remote = remote;
         }
+        // if (local % 10000 == 0)
+        //     std::cout << "Local: " << local << ", Remote: " << remote << ", Performance: " << performance << std::endl;
     }
     std::cout << "Best local: " << best_local << ", Best remote: " << best_remote << ", Best performance: " << best_performance << std::endl;
 }
 
 int main()
 {
-    uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 10, cache_size = 100000;
+    uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 50, cache_size = 4467939;
     // auto cdf = load_workload("/vectordb1/ycsb/zipfian_0.99/client_0_thread_0_clientPerThread_0.txt", "hotspot_cdf.txt");
     // auto cdf = load_workload("/vectordb1/ycsb/uniform/client_0_thread_0_clientPerThread_0.txt", "hotspot_cdf.txt");
-    auto cdf = load_workload("/vectordb1/ycsb/hotspot_80_20/client_0_thread_0_clientPerThread_0.txt", "hotspot_cdf.txt");
+    auto cdf = load_workload("/mydata/twitter/7/seq.txt", "hotspot_cdf.txt", 4467939);
+    // auto cdf = load_sorted_cdf("/mydata/twitter/7/freq.txt");
     auto start = std::chrono::high_resolution_clock::now();
     find_optimal_access_rates(cdf, cache_latency, disk_latency, rdma_latency, cache_size);
     auto end = std::chrono::high_resolution_clock::now();

@@ -3,6 +3,11 @@ project(CacheSimulator)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Ensure Debug Build Type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
+endif()
+
 # Enable Debug Symbols
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 

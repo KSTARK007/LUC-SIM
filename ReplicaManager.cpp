@@ -3,10 +3,11 @@
 #include <algorithm>
 
 ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba,
-                               uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval)
+                               uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval, uint64_t dataset_size)
     : replica_misses(num_replicas, 0), remote_fetches(num_replicas, 0), cache_contents(num_replicas),
       rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval)
 {
+    dataset_size = 100000;
     for (int i = 0; i < num_replicas; ++i)
     {
         replicas.emplace_back(std::make_unique<Replica>(i, cache_size));

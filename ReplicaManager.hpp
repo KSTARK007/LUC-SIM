@@ -24,6 +24,7 @@ class ReplicaManager
 {
 private:
     std::vector<std::unique_ptr<Replica>> replicas;
+    uint64_t dataset_size;
     std::mutex manager_mutex;
     int total_requests = 0;
     int total_misses = 0;
@@ -47,7 +48,8 @@ private:
 
 public:
     ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba,
-                   uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval);
+                   uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk,
+                   uint64_t update_interval, uint64_t dataset_size);
     ~ReplicaManager();
     int handleRequest(int key, int replica_id = -1);
     void computeAndWriteMetrics(const std::string &filename, float cache_pct, int total_dataset_size);

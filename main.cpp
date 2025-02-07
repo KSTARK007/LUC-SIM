@@ -18,7 +18,7 @@ int main()
     // config.printConfig();
 
     ReplicaManager manager(config.num_replicas, cache_size, config.rdma_enabled, config.enable_cba,
-                           config.latency_local, config.latency_rdma, config.latency_disk, config.update_interval);
+                           config.latency_local, config.latency_rdma, config.latency_disk, config.update_interval, config.total_dataset_size);
 
     std::string folder_path = config.workload_folder; // Folder containing request files
     RequestProcessor requestProcessor(folder_path);
