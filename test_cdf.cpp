@@ -272,10 +272,20 @@ int main(int argc, char *argv[])
     int twitter_wokload = 7;
     if (argc > 1)
     {
+        if (argc < 3)
+        {
+            std::cout << "Usage: " << argv[0] << " <window_size> <twitter_workload number>" << std::endl;
+            return 1;
+        }
         window_size = std::stoull(argv[1]);
         twitter_wokload = std::stoi(argv[2]);
     }
     std::string workload_folder = "/mydata/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
+    if (!fs::exists(workload_folder))
+    {
+        std::cout << "Workload file not found: " << workload_folder << std::endl;
+        return 1;
+    }
 
     // process_cdf_direct("/mydata/twitter/7/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
 
