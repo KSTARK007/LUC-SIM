@@ -131,7 +131,7 @@ void ReplicaManager::runCBAUpdater()
 
         std::sort(sorted_frequencies.begin(), sorted_frequencies.end(), std::greater<>());
 
-        for (uint64_t i = 1; i <= 100000; i++)
+        for (uint64_t i = 1; i <= dataset_size; i++)
         {
             if (access_frequencies.find(i) == access_frequencies.end())
             {

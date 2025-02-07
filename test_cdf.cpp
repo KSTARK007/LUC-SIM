@@ -6,8 +6,11 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <filesystem>
 
-std::vector<uint64_t> extract_keys(const std::string &filename, size_t total_keys = 200000)
+namespace fs = std::filesystem;
+
+std::vector<uint64_t> extract_keys(const std::string &filename, size_t total_keys = 2000000)
 {
     std::vector<uint64_t> keys;
     std::ifstream file(filename);
@@ -89,7 +92,7 @@ std::vector<std::pair<std::string, uint64_t>> load_workload(const std::string &f
     auto c_sum = sum_cdf(freq_vector, cdf_filename);
     std::cout << "Finished computing cdf\n"
               << "Size of cdf: " << c_sum.size() << std::endl;
-    print_cdf(c_sum);
+    // print_cdf(c_sum);
     return c_sum;
 }
 
@@ -155,7 +158,7 @@ uint64_t calculate_performance(const std::vector<std::pair<std::string, uint64_t
     return latency ? std::numeric_limits<uint64_t>::max() / latency : 0;
 }
 
-void find_optimal_access_rates(std::vector<std::pair<std::string, uint64_t>> &cdf, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size)
+size_t find_optimal_access_rates(std::vector<std::pair<std::string, uint64_t>> &cdf, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size)
 {
     uint64_t best_performance = 0, best_local = 0, best_remote = cache_size;
     for (uint64_t local = 0; local < cdf.size(); local++)
@@ -174,19 +177,111 @@ void find_optimal_access_rates(std::vector<std::pair<std::string, uint64_t>> &cd
         //     std::cout << "Local: " << local << ", Remote: " << remote << ", Performance: " << performance << std::endl;
     }
     std::cout << "Best local: " << best_local << ", Best remote: " << best_remote << ", Best performance: " << best_performance << std::endl;
+    return best_local;
 }
 
-int main()
+std::vector<uint64_t> extract_keys_windowed(const std::string &filename, size_t start_index, size_t window_size)
 {
-    uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 50, cache_size = 4467939;
-    // auto cdf = load_workload("/vectordb1/ycsb/zipfian_0.99/client_0_thread_0_clientPerThread_0.txt", "hotspot_cdf.txt");
-    // auto cdf = load_workload("/vectordb1/ycsb/uniform/client_0_thread_0_clientPerThread_0.txt", "hotspot_cdf.txt");
-    auto cdf = load_workload("/mydata/twitter/7/seq.txt", "hotspot_cdf.txt", 4467939);
-    // auto cdf = load_sorted_cdf("/mydata/twitter/7/freq.txt");
+    std::vector<uint64_t> keys;
+    std::ifstream file(filename);
+    uint64_t key;
+    size_t count = 0;
+
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Unable to open file: " + filename);
+    }
+
+    while (file >> key)
+    {
+        if (count >= start_index && count < start_index + window_size)
+        {
+            keys.push_back(key);
+        }
+        if (count >= start_index + window_size)
+        {
+            break;
+        }
+        count++;
+    }
+
+    file.close();
+    return keys;
+}
+
+void process_workload_in_windows(const std::string &filepath, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size, size_t total_ops, size_t window_size)
+{
+    size_t start_index = 0;
+    std::vector<uint64_t> cba_results;
+
+    while (start_index < total_ops)
+    {
+        auto keys = extract_keys_windowed(filepath, start_index, window_size);
+        if (keys.empty())
+            break;
+
+        std::cout << "\nProcessing keys from index " << start_index << " to " << start_index + keys.size() << std::endl;
+
+        auto start = std::chrono::high_resolution_clock::now();
+        auto freq_vector = sort_keys_by_frequency(keys, cache_size);
+        auto cdf = sum_cdf(freq_vector, "hotspot_cdf.txt");
+        auto best = find_optimal_access_rates(cdf, cache_ns_avg, disk_ns_avg, rdma_ns_avg, cache_size);
+        auto end = std::chrono::high_resolution_clock::now();
+        cba_results.push_back(best);
+
+        std::chrono::duration<double> elapsed = end - start;
+        // std::cout << "Time taken for this window: " << elapsed.count() << "s\n";
+
+        start_index += window_size;
+    }
+    std::string cba_filename = "cba_results_" + std::to_string(window_size) + ".txt";
+    auto cba_results_file = fs::path(filepath).parent_path() / cba_filename;
+
+    std::ofstream file(cba_results_file);
+    for (size_t i = 0; i < cba_results.size(); i++)
+    {
+        file << cba_results[i] << std::endl;
+    }
+    file.close();
+}
+
+void process_cdf_direct(const std::string &cdf_filename, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size)
+{
+    auto cdf = load_sorted_cdf(cdf_filename);
     auto start = std::chrono::high_resolution_clock::now();
-    find_optimal_access_rates(cdf, cache_latency, disk_latency, rdma_latency, cache_size);
+    find_optimal_access_rates(cdf, cache_ns_avg, disk_ns_avg, rdma_ns_avg, cache_size);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Time taken: " << elapsed.count() << "s\n";
+}
+
+void process_workload_fully(const std::string &filepath, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg, uint64_t cache_size, size_t total_keys)
+{
+    auto cdf = load_workload(filepath, "hotspot_cdf.txt", total_keys);
+    auto start = std::chrono::high_resolution_clock::now();
+    find_optimal_access_rates(cdf, cache_ns_avg, disk_ns_avg, rdma_ns_avg, cache_size);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Time taken: " << elapsed.count() << "s\n";
+}
+
+int main(int argc, char *argv[])
+{
+    uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 50, cache_size = 4467939;
+    size_t window_size = 10000000;
+    int twitter_wokload = 7;
+    if (argc > 1)
+    {
+        window_size = std::stoull(argv[1]);
+        twitter_wokload = std::stoi(argv[2]);
+    }
+    std::string workload_folder = "/mydata/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
+
+    // process_cdf_direct("/mydata/twitter/7/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
+
+    // process_workload_fully("/mydata/twitter/7/seq.txt", cache_latency, disk_latency, rdma_latency, cache_size, 2000000);
+
+    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, 851370550, 10000000);
+
     return 0;
 }
