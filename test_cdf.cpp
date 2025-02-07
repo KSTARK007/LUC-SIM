@@ -213,6 +213,8 @@ void process_workload_in_windows(const std::string &filepath, uint64_t cache_ns_
 {
     size_t start_index = 0;
     std::vector<uint64_t> cba_results;
+    size_t num_windows = (total_ops + window_size - 1) / window_size; // Calculate total windows
+    std::cout << "Total windows: " << num_windows << std::endl;
 
     while (start_index < total_ops)
     {
@@ -230,10 +232,29 @@ void process_workload_in_windows(const std::string &filepath, uint64_t cache_ns_
         cba_results.push_back(best);
 
         std::chrono::duration<double> elapsed = end - start;
-        // std::cout << "Time taken for this window: " << elapsed.count() << "s\n";
+
+        // Display progress bar
+        size_t current_window = (start_index / window_size) + 1;
+        double progress = (double)current_window / num_windows;
+        int bar_width = 50;
+        std::cout << "[";
+        int pos = bar_width * progress;
+        for (int i = 0; i < bar_width; ++i)
+        {
+            if (i < pos)
+                std::cout << "=";
+            else if (i == pos)
+                std::cout << ">";
+            else
+                std::cout << " ";
+        }
+        std::cout << "] " << int(progress * 100.0) << "%\r";
+        std::cout.flush();
 
         start_index += window_size;
     }
+    std::cout << std::endl; // Move to new line after progress bar completes
+
     std::string cba_filename = "cba_results_" + std::to_string(window_size) + ".txt";
     auto cba_results_file = fs::path(filepath).parent_path() / cba_filename;
 
@@ -284,9 +305,9 @@ int main(int argc, char *argv[])
         twitter_wokload = std::stoi(argv[2]);
         total_keys = std::stoull(argv[3]);
         total_ops = std::stoull(argv[4]);
-        window_size = total_keys * window_pct / 100;
+        window_size = total_ops * window_pct / 100;
     }
-    std::string workload_folder = "/mydata/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
+    std::string workload_folder = "/vectordb1/traces/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
     if (!fs::exists(workload_folder))
     {
         std::cout << "Workload file not found: " << workload_folder << std::endl;
@@ -297,7 +318,7 @@ int main(int argc, char *argv[])
 
     // process_workload_fully("/mydata/twitter/7/seq.txt", cache_latency, disk_latency, rdma_latency, cache_size, 2000000);
 
-    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_keys, window_size);
+    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
 
     return 0;
 }
