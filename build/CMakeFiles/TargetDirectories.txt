@@ -1,3 +1,0 @@
-/vectordb1/LDC_Cache_Sim/build/CMakeFiles/CacheSimulator.dir
-/vectordb1/LDC_Cache_Sim/build/CMakeFiles/edit_cache.dir
-/vectordb1/LDC_Cache_Sim/build/CMakeFiles/rebuild_cache.dir
