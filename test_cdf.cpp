@@ -268,17 +268,23 @@ void process_workload_fully(const std::string &filepath, uint64_t cache_ns_avg, 
 int main(int argc, char *argv[])
 {
     uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 50, cache_size = 4467939;
+    size_t total_ops = 851370550;
+    size_t total_keys = 4467939;
     size_t window_size = 10000000;
+    size_t window_pct = 10;
     int twitter_wokload = 7;
     if (argc > 1)
     {
-        if (argc < 3)
+        if (argc < 5)
         {
-            std::cout << "Usage: " << argv[0] << " <window_size> <twitter_workload number>" << std::endl;
+            std::cout << "Usage: " << argv[0] << " <window_size percentage> <twitter_workload number> <total_keys>" << std::endl;
             return 1;
         }
-        window_size = std::stoull(argv[1]);
+        window_pct = std::stoull(argv[1]);
         twitter_wokload = std::stoi(argv[2]);
+        total_keys = std::stoull(argv[3]);
+        total_ops = std::stoull(argv[4]);
+        window_size = total_keys * window_pct / 100;
     }
     std::string workload_folder = "/mydata/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
     if (!fs::exists(workload_folder))
@@ -291,7 +297,7 @@ int main(int argc, char *argv[])
 
     // process_workload_fully("/mydata/twitter/7/seq.txt", cache_latency, disk_latency, rdma_latency, cache_size, 2000000);
 
-    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, 851370550, 10000000);
+    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_keys, window_size);
 
     return 0;
 }
