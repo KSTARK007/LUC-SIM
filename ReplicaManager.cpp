@@ -7,7 +7,6 @@ ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_en
     : replica_misses(num_replicas, 0), remote_fetches(num_replicas, 0), cache_contents(num_replicas),
       rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval)
 {
-    dataset_size = 100000;
     for (int i = 0; i < num_replicas; ++i)
     {
         replicas.emplace_back(std::make_unique<Replica>(i, cache_size));
