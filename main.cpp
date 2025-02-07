@@ -26,7 +26,10 @@ int main()
     // requestProcessor.processAllFilesParallel(manager);
     requestProcessor.processFirstFile(manager);
 
-    manager.computeAndWriteMetrics("simulation_stats.txt", config.cache_percentage, config.total_dataset_size);
+    std::string is_rdma = config.rdma_enabled ? "rdma" : "no_rdma";
+    std::string is_cba = config.enable_cba ? "cba" : "no_cba";
+    std::string filename = cache_size + "_cache_" + is_rdma + "_" + is_cba + "_simulation_stats.txt";
+    manager.computeAndWriteMetrics(filename, config.cache_percentage, config.total_dataset_size);
     std::cout << "Simulation complete. Stats written to simulation_stats.txt\n";
 
     return 0;

@@ -5,7 +5,7 @@
   "requests_per_thread": 10000000,
   "cache_percentage": 0.33,
   "rdma_enabled": true,
-  "enable_cba": true,
+  "enable_cba": false,
   "cba_update_interval": 10000000,
   "latency_local": 1,
   "latency_rdma": 15,

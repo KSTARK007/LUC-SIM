@@ -53,7 +53,7 @@ public:
     ~ReplicaManager();
     int handleRequest(int key, int replica_id = -1);
     void computeAndWriteMetrics(const std::string &filename, float cache_pct, int total_dataset_size);
-    void print_optimal_redundanc_to_file();
+    void print_optimal_redundanc_to_file(std::string filename);
 };
 
 #endif // REPLICA_MANAGER_HPP

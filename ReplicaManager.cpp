@@ -110,7 +110,8 @@ void ReplicaManager::computeAndWriteMetrics(const std::string &filename, float c
 
     Metrics metrics(cache_contents, cache_pct, total_dataset_size, overall_miss_ratio, remote_miss_ratio, local_miss_ratio, miss_ratios, total_keys_admitted);
     metrics.writeToFile(filename);
-    print_optimal_redundanc_to_file();
+    std::string modified_filename = "optimal_redundancy_" + filename;
+    print_optimal_redundanc_to_file(modified_filename);
 }
 
 void ReplicaManager::runCBAUpdater()
@@ -157,9 +158,9 @@ void ReplicaManager::runCBAUpdater()
     return;
 }
 
-void ReplicaManager::print_optimal_redundanc_to_file()
+void ReplicaManager::print_optimal_redundanc_to_file(std::string filename)
 {
-    std::ofstream file("optimal_redundancy.txt");
+    std::ofstream file(filename);
     if (!file)
     {
         std::cerr << "Error: Could not open file optimal_redundancy.txt\n";
