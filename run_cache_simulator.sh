@@ -13,7 +13,7 @@ BASE_CONFIG='{
   "latency_local": 1,
   "latency_rdma": 15,
   "latency_disk": 200,
-  "workload_folder": "/mydata/twitter/7"
+  "workload_folder": "/vectordb1/traces/twitter/7"
 }'
 
 # Function to update the JSON file and run the simulator in a screen session
@@ -41,7 +41,9 @@ fi
 
 # Start all simulations in parallel using screen
 run_simulator true true
+sleep 10
 run_simulator true false
+sleep 10
 run_simulator false false
 
 echo "All simulations started in separate screen sessions."

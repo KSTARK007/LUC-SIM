@@ -33,7 +33,7 @@ int ReplicaManager::handleRequest(int key, int replica_id)
 {
     std::lock_guard<std::mutex> lock(manager_mutex);
     total_requests++;
-    if (total_requests % update_interval == 0)
+    if (total_requests % update_interval == 0 && enable_cba)
     {
         runCBAUpdater();
     }
