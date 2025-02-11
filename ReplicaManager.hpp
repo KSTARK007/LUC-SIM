@@ -4,6 +4,7 @@
 #include "Replica.hpp"
 #include "Metrics.hpp"
 #include "CostBenefitAnalyzer.hpp"
+#include "ConfigManager.hpp"
 #include <vector>
 #include <memory>
 #include <mutex>
@@ -35,6 +36,8 @@ private:
     bool rdma_enabled = false;
     bool enable_cba = false;
     bool enable_de_duplication = false;
+    bool is_access_rate_fixed = false;
+    uint64_t R_opt = 0;
     std::unique_ptr<CostBenefitAnalyzer> cba;
     std::vector<int> replica_misses;
     std::vector<int> remote_fetches;
@@ -44,22 +47,24 @@ private:
     std::thread cba_thread;
     uint64_t update_interval;
     std::vector<int> best_optimal_redundancy;
+    std::map<int, bool> dup_keys_map;
     uint64_t latency_local;
     uint64_t latency_rdma;
     uint64_t latency_disk;
+    std::string workload_folder;
 
     void runCBAUpdater();
 
 public:
-    ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba, bool enable_de_duplication,
-                   uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk,
-                   uint64_t update_interval, uint64_t dataset_size);
+    ReplicaManager(ConfigManager &config);
     ~ReplicaManager();
     int handleRequest(int key, int replica_id = -1);
     void computeAndWriteMetrics(const std::string &filename, float cache_pct, int total_dataset_size);
     void print_optimal_redundanc_to_file(std::string filename);
     int hashFunction(int key);
     void deDuplicateCache();
+    void read_cdf_from_file(std::string filename);
+    bool shouldCacheLocally(const std::string &key);
 };
 
 #endif // REPLICA_MANAGER_HPP

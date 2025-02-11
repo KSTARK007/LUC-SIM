@@ -13,6 +13,8 @@ BASE_CONFIG='{
   "rdma_enabled": false,
   "enable_cba": false,
   "enable_de_duplication": false,
+  "is_access_rate_fixed": false,
+  "fixed_access_rate_value": 1000000,
   "cba_update_interval": '$CBA_UPDATE_INTERVAL',
   "latency_local": 1,
   "latency_rdma": 19,
@@ -45,10 +47,10 @@ fi
 
 # Start all simulations in parallel using screen
 run_simulator true true
-sleep 10
-run_simulator true false
-sleep 10
-run_simulator false false
+# sleep 10
+# run_simulator true false
+# sleep 10
+# run_simulator false false
 
 echo "All simulations started in separate screen sessions."
 echo "Use 'screen -ls' to list running sessions."

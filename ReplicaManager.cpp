@@ -2,20 +2,24 @@
 #include <chrono>
 #include <algorithm>
 
-ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba, bool enable_de_duplication,
-                               uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval, uint64_t dataset_size)
-    : replica_misses(num_replicas, 0), remote_fetches(num_replicas, 0), cache_contents(num_replicas),
-      rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval),
-      dataset_size(dataset_size), latency_local(latency_local), latency_rdma(latency_rdma), latency_disk(latency_disk),
-      enable_de_duplication(enable_de_duplication)
+ReplicaManager::ReplicaManager(ConfigManager &config)
+    : replica_misses(config.num_replicas, 0), remote_fetches(config.num_replicas, 0), cache_contents(config.num_replicas),
+      rdma_enabled(config.rdma_enabled), enable_cba(config.enable_cba), stop_cba_thread(false), update_interval(config.update_interval),
+      dataset_size(config.total_dataset_size), latency_local(config.latency_local), latency_rdma(config.latency_rdma), latency_disk(config.latency_disk),
+      enable_de_duplication(enable_de_duplication), is_access_rate_fixed(config.is_access_rate_fixed)
 {
-    for (int i = 0; i < num_replicas; ++i)
+    workload_folder = config.workload_folder;
+    for (int i = 0; i < config.num_replicas; ++i)
     {
-        replicas.emplace_back(std::make_unique<Replica>(i, cache_size));
+        replicas.emplace_back(std::make_unique<Replica>(i, config.cache_size));
+    }
+    if (is_access_rate_fixed)
+    {
+        R_opt = config.fixed_access_rate;
     }
     if (enable_cba)
     {
-        cba = std::make_unique<CostBenefitAnalyzer>(num_replicas, dataset_size, cache_size, latency_local, latency_rdma, latency_disk);
+        cba = std::make_unique<CostBenefitAnalyzer>(config.num_replicas, dataset_size, config.cache_size, latency_local, latency_rdma, latency_disk);
     }
 }
 
@@ -37,7 +41,14 @@ int ReplicaManager::handleRequest(int key, int replica_id)
     total_requests++;
     if (total_requests % update_interval == 0 && enable_cba)
     {
-        runCBAUpdater();
+        if (!is_access_rate_fixed)
+        {
+            runCBAUpdater();
+        }
+        else
+        {
+            read_cdf_from_file(workload_folder + "freq.txt");
+        }
     }
     int primary_replica_id;
     if (replica_id == -1)
@@ -73,10 +84,24 @@ int ReplicaManager::handleRequest(int key, int replica_id)
                 remote_fetches[i]++;
 
                 // CBA checks if this key should be cached locally
-                if (enable_cba && cba->shouldCacheLocally(std::to_string(key)))
+                if (enable_cba)
                 {
-                    total_keys_admitted++;
-                    replicas[primary_replica_id]->cache.put(key, key);
+                    if (is_access_rate_fixed)
+                    {
+                        if (shouldCacheLocally(std::to_string(key)))
+                        {
+                            total_keys_admitted++;
+                            replicas[primary_replica_id]->cache.put(key, key);
+                        }
+                    }
+                    else
+                    {
+                        if (cba->shouldCacheLocally(std::to_string(key)))
+                        {
+                            total_keys_admitted++;
+                            replicas[primary_replica_id]->cache.put(key, key);
+                        }
+                    }
                 }
                 return key;
             }
@@ -127,7 +152,6 @@ void ReplicaManager::runCBAUpdater()
     std::vector<std::pair<uint64_t, uint64_t>> sorted_frequencies;
 
     {
-        // std::lock_guard<std::mutex> lock(manager_mutex);
         if (access_frequencies.empty())
         {
             return;
@@ -168,6 +192,31 @@ void ReplicaManager::runCBAUpdater()
     }
     cba->reset();
     return;
+}
+
+void ReplicaManager::read_cdf_from_file(std::string filename)
+{
+    std::ifstream file(filename);
+    if (!file)
+    {
+        std::cerr << "Error: Could not open file " << filename << "\n";
+        return;
+    }
+    std::vector<std::pair<uint64_t, uint64_t>> new_frequencies;
+    uint64_t freq, key;
+    while (file >> key >> freq)
+    {
+        new_frequencies.emplace_back(freq, key);
+    }
+    for (uint64_t i = 0; i < R_opt && i < new_frequencies.size(); ++i)
+    {
+        dup_keys_map[new_frequencies[i].second] = true;
+    }
+}
+
+bool ReplicaManager::shouldCacheLocally(const std::string &key)
+{
+    return dup_keys_map[std::stoi(key)];
 }
 
 void ReplicaManager::print_optimal_redundanc_to_file(std::string filename)

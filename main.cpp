@@ -1,5 +1,4 @@
 #include "ReplicaManager.hpp"
-#include "ConfigManager.hpp"
 #include "RequestProcessor.hpp"
 #include <iostream>
 #include <thread>
@@ -16,13 +15,11 @@ int main()
 {
     ConfigManager config("config.json");
 
-    int cache_size = static_cast<int>(config.cache_percentage * config.total_dataset_size);
     completed_requests = 0;
 
     // config.printConfig();
 
-    ReplicaManager manager(config.num_replicas, cache_size, config.rdma_enabled, config.enable_cba, config.enable_de_duplication,
-                           config.latency_local, config.latency_rdma, config.latency_disk, config.update_interval, config.total_dataset_size);
+    ReplicaManager manager(config);
 
     std::string folder_path = config.workload_folder; // Folder containing request files
     RequestProcessor requestProcessor(folder_path);
@@ -34,6 +31,7 @@ int main()
     std::string is_rdma = config.rdma_enabled ? "rdma" : "no_rdma";
     std::string is_cba = config.enable_cba ? "cba" : "no_cba";
     std::string is_dedup = config.enable_de_duplication ? "dedup" : "no_dedup";
+    std::string is_fixed_access_rate = config.is_access_rate_fixed ? "fixed" : "variable";
 
     // Extract workload and workload number from folder path
     size_t last_slash = folder_path.find_last_of("/");
@@ -47,7 +45,8 @@ int main()
 
     // Construct filename
     std::string filename = output_folder + "/workload_" + workload + "_" + workload_number + "_cache_" +
-                           std::to_string(cache_percent) + "_" + is_rdma + "_" + is_cba + "_" + is_dedup + ".txt";
+                           std::to_string(cache_percent) + "_" + is_rdma + "_" + is_cba + "_access_rate" +
+                           is_fixed_access_rate + "_" + is_dedup + ".txt";
     manager.computeAndWriteMetrics(filename, config.cache_percentage, config.total_dataset_size);
 
     std::cout << "Simulation complete. Stats written to " << filename << "\n";
