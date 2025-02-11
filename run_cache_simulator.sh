@@ -4,23 +4,42 @@ DATASET_SIZE=328491867
 CBA_UPDATE_INTERVAL=75500000
 
 CONFIG_FILE="config.json"
-BASE_CONFIG='{
-  "num_threads": 1,
-  "num_replicas": 3,
-  "total_dataset_size": '$DATASET_SIZE',
-  "requests_per_thread": 10000000,
-  "cache_percentage": 0.34,
-  "rdma_enabled": false,
-  "enable_cba": false,
-  "enable_de_duplication": false,
-  "is_access_rate_fixed": false,
-  "fixed_access_rate_value": 1000000,
-  "cba_update_interval": '$CBA_UPDATE_INTERVAL',
-  "latency_local": 1,
-  "latency_rdma": 19,
-  "latency_disk": 296,
-  "workload_folder": "/vectordb1/traces/twitter/'$WORKLOAD_NUMBER'"
-}'
+
+generate_config() {
+    jq -n \
+        --argjson num_threads 1 \
+        --argjson num_replicas 3 \
+        --argjson total_dataset_size "$DATASET_SIZE" \
+        --argjson requests_per_thread 10000000 \
+        --argjson cache_percentage 0.34 \
+        --argjson rdma_enabled "$1" \
+        --argjson enable_cba "$2" \
+        --argjson enable_de_duplication false \
+        --argjson is_access_rate_fixed false \
+        --argjson fixed_access_rate_value 1000000 \
+        --argjson cba_update_interval "$CBA_UPDATE_INTERVAL" \
+        --argjson latency_local 1 \
+        --argjson latency_rdma 19 \
+        --argjson latency_disk 296 \
+        --arg workload_folder "/vectordb1/traces/twitter/$WORKLOAD_NUMBER" \
+        '{
+            num_threads: $num_threads,
+            num_replicas: $num_replicas,
+            total_dataset_size: $total_dataset_size,
+            requests_per_thread: $requests_per_thread,
+            cache_percentage: $cache_percentage,
+            rdma_enabled: $rdma_enabled,
+            enable_cba: $enable_cba,
+            enable_de_duplication: $enable_de_duplication,
+            is_access_rate_fixed: $is_access_rate_fixed,
+            fixed_access_rate_value: $fixed_access_rate_value,
+            cba_update_interval: $cba_update_interval,
+            latency_local: $latency_local,
+            latency_rdma: $latency_rdma,
+            latency_disk: $latency_disk,
+            workload_folder: $workload_folder
+        }' > "$CONFIG_FILE"
+}
 
 # Function to update the JSON file and run the simulator in a screen session
 run_simulator() {
@@ -32,11 +51,11 @@ run_simulator() {
     echo "Starting simulation: $session_name in a screen session..."
 
     # Modify and save the configuration JSON file
-    echo "$BASE_CONFIG" | jq --argjson rdma "$rdma_enabled" --argjson cba "$enable_cba" \
-        '.rdma_enabled = $rdma | .enable_cba = $cba' > "$CONFIG_FILE"
+    generate_config "$rdma_enabled" "$enable_cba"
 
     # Start a new screen session and run the simulator inside it
-    screen -dmS "$session_name" bash -c "./build/CacheSimulator $CONFIG_FILE | tee $output_log"
+    # screen -dmS "$session_name" bash -c "./build/CacheSimulator $CONFIG_FILE | tee $output_log"
+    ./build/CacheSimulator $CONFIG_FILE | tee $output_log
 }
 
 # Ensure jq is installed
@@ -47,12 +66,37 @@ fi
 
 # Start all simulations in parallel using screen
 run_simulator true true
-# sleep 10
-# run_simulator true false
-# sleep 10
-# run_simulator false false
+run_simulator true false
+run_simulator false false
 
-echo "All simulations started in separate screen sessions."
-echo "Use 'screen -ls' to list running sessions."
-echo "To attach to a session, use 'screen -r session_name'."
-echo "To detach, press 'Ctrl+A' then 'D'."
+WORKLOAD_NUMBER=14
+DATASET_SIZE=33297138
+CBA_UPDATE_INTERVAL=48800000
+
+run_simulator true true
+run_simulator true false
+run_simulator false false
+
+WORKLOAD_NUMBER=22
+DATASET_SIZE=185544835
+CBA_UPDATE_INTERVAL=54800000
+
+run_simulator true true
+run_simulator true false
+run_simulator false false
+
+WORKLOAD_NUMBER=26
+DATASET_SIZE=12230676
+CBA_UPDATE_INTERVAL=5800000
+
+run_simulator true true
+run_simulator true false
+run_simulator false false
+
+WORKLOAD_NUMBER=47
+DATASET_SIZE=1892212
+CBA_UPDATE_INTERVAL=74800000
+
+run_simulator true true
+run_simulator true false
+run_simulator false false
