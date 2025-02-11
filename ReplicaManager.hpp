@@ -34,6 +34,7 @@ private:
     uint64_t total_keys_admitted = 0;
     bool rdma_enabled = false;
     bool enable_cba = false;
+    bool enable_de_duplication = false;
     std::unique_ptr<CostBenefitAnalyzer> cba;
     std::vector<int> replica_misses;
     std::vector<int> remote_fetches;
@@ -43,11 +44,14 @@ private:
     std::thread cba_thread;
     uint64_t update_interval;
     std::vector<int> best_optimal_redundancy;
+    uint64_t latency_local;
+    uint64_t latency_rdma;
+    uint64_t latency_disk;
 
     void runCBAUpdater();
 
 public:
-    ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba,
+    ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba, bool enable_de_duplication,
                    uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk,
                    uint64_t update_interval, uint64_t dataset_size);
     ~ReplicaManager();

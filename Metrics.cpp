@@ -5,9 +5,10 @@
 
 Metrics::Metrics(const std::vector<std::set<int>> &key_sets, float cache_pct, int num_keys_seen,
                  float overall_miss_ratio, float remote_miss_ratio, float local_miss_ratio,
-                 const std::vector<float> &replica_miss_ratios, int total_keys_admitted)
+                 const std::vector<float> &replica_miss_ratios, int total_keys_admitted, float avg_latency)
     : overall_miss_ratio(overall_miss_ratio), remote_miss_ratio(remote_miss_ratio),
-      local_dup_miss_ratio(local_miss_ratio), replica_miss_ratios(replica_miss_ratios), total_keys_admitted(total_keys_admitted)
+      local_dup_miss_ratio(local_miss_ratio), replica_miss_ratios(replica_miss_ratios),
+      total_keys_admitted(total_keys_admitted), avg_latency(avg_latency)
 {
 
     int nsets = key_sets.size();
@@ -62,6 +63,7 @@ void Metrics::writeToFile(const std::string &filename) const
     }
 
     file << "Sorensen Similarity: " << sorensen_similarity << "\n"
+         << "Average Latency: " << avg_latency << "\n"
          << "Dataset Coverage: " << dataset_coverage << "\n"
          << "Replica Utilization: " << replica_utilization << "\n"
          << "Overall Miss Ratio: " << overall_miss_ratio << "\n"

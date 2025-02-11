@@ -14,6 +14,7 @@ public:
     float cache_percentage;
     bool rdma_enabled;
     bool enable_cba;
+    bool enable_de_duplication;
     uint64_t update_interval;
     int latency_local;
     int latency_rdma;

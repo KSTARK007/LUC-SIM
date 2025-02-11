@@ -28,6 +28,7 @@ void ConfigManager::loadConfig(const std::string &config_file)
     cache_percentage = config["cache_percentage"];
     rdma_enabled = config["rdma_enabled"];
     enable_cba = config["enable_cba"];
+    enable_de_duplication = config["enable_de_duplication"];
     update_interval = config.value("cba_update_interval", 10);
     latency_local = config["latency_local"];
     latency_rdma = config["latency_rdma"];
@@ -45,6 +46,7 @@ void ConfigManager::printConfig()
               << "  Cache percentage: " << cache_percentage << "\n"
               << "  RDMA enabled: " << (rdma_enabled ? "true" : "false") << "\n"
               << "  CBA enabled: " << (enable_cba ? "true" : "false") << "\n"
+              << "  De-duplication enabled: " << (enable_de_duplication ? "true" : "false") << "\n"
               << "  CBA update interval: " << update_interval << " seconds\n"
               << "  Local latency: " << latency_local << " us\n"
               << "  RDMA latency: " << latency_rdma << " us\n"

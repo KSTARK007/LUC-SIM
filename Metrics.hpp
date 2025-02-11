@@ -17,13 +17,14 @@ private:
     float replica_utilization;
     float sorensen_similarity;
     float overlap_pct;
+    float avg_latency;
     int total_keys_admitted;
     std::vector<float> replica_miss_ratios;
 
 public:
     Metrics(const std::vector<std::set<int>> &key_sets, float cache_pct, int num_keys_seen,
             float overall_miss_ratio, float remote_miss_ratio, float local_miss_ratio,
-            const std::vector<float> &replica_miss_ratios, int total_keys_admitted);
+            const std::vector<float> &replica_miss_ratios, int total_keys_admitted, float avg_latency);
 
     void writeToFile(const std::string &filename) const;
 };

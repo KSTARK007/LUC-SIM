@@ -2,10 +2,12 @@
 #include <chrono>
 #include <algorithm>
 
-ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba,
+ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba, bool enable_de_duplication,
                                uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval, uint64_t dataset_size)
     : replica_misses(num_replicas, 0), remote_fetches(num_replicas, 0), cache_contents(num_replicas),
-      rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval), dataset_size(dataset_size)
+      rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval),
+      dataset_size(dataset_size), latency_local(latency_local), latency_rdma(latency_rdma), latency_disk(latency_disk),
+      enable_de_duplication(enable_de_duplication)
 {
     for (int i = 0; i < num_replicas; ++i)
     {
@@ -102,13 +104,19 @@ void ReplicaManager::computeAndWriteMetrics(const std::string &filename, float c
     float remote_miss_ratio = static_cast<float>(tmp) / overall_miss_ratio;
     float local_miss_ratio = static_cast<float>(total_misses) / total_requests;
 
+    float total_latency = (total_misses * latency_disk) +
+                          (total_remote_fetches * latency_rdma) +
+                          ((total_requests - total_misses - total_remote_fetches) * latency_local);
+
+    float avg_latency = total_latency / total_requests;
+
     // Store cache contents for metrics tracking
     for (int i = 0; i < replicas.size(); ++i)
     {
         cache_contents[i] = replicas[i]->cache.getKeys();
     }
 
-    Metrics metrics(cache_contents, cache_pct, total_dataset_size, overall_miss_ratio, remote_miss_ratio, local_miss_ratio, miss_ratios, total_keys_admitted);
+    Metrics metrics(cache_contents, cache_pct, total_dataset_size, overall_miss_ratio, remote_miss_ratio, local_miss_ratio, miss_ratios, total_keys_admitted, avg_latency);
     metrics.writeToFile(filename);
     std::string modified_filename = "optimal_redundancy_" + filename;
     print_optimal_redundanc_to_file(modified_filename);
@@ -153,7 +161,10 @@ void ReplicaManager::runCBAUpdater()
         std::chrono::duration<double> elapsed = end_time - start_time;
         std::cout << "Time taken to compute optimal redundancy: " << elapsed.count() << "s\n";
         // std::cout << "Optimal redundancy level: " << best_optimal_redundancy.back() << std::endl;
-        deDuplicateCache();
+        if (enable_de_duplication)
+        {
+            deDuplicateCache();
+        }
     }
     cba->reset();
     return;
