@@ -16,7 +16,7 @@
 namespace fs = std::filesystem;
 extern std::atomic<int> completed_requests;
 
-void displayProgressBar(int total_requests)
+void displayProgressBar(uint64_t total_requests)
 {
     const int bar_width = 50;
     while (completed_requests < total_requests)
@@ -97,13 +97,15 @@ std::vector<std::pair<int, int>> RequestProcessor::loadRequestsFromTracesFile(co
         return requests;
     }
 
-    off_t file_size = lseek(fd, 0, SEEK_END);
-    if (file_size <= 0)
+    // off_t file_size = lseek(fd, 0, SEEK_END);
+    struct stat sb;
+    if (fstat(fd, &sb) == -1)
     {
-        std::cerr << "Error: Invalid file size\n";
+        std::cerr << "Error: fstat failed\n";
         close(fd);
         return requests;
     }
+    off_t file_size = sb.st_size;
 
     char *data = static_cast<char *>(mmap(nullptr, file_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0));
     close(fd);
@@ -116,7 +118,7 @@ std::vector<std::pair<int, int>> RequestProcessor::loadRequestsFromTracesFile(co
 
     madvise(data, file_size, MADV_SEQUENTIAL | MADV_WILLNEED);
 
-    requests.resize(file_size / 10);
+    requests.resize(file_size);
 
     char *ptr = data;
     char *end = data + file_size;
@@ -130,7 +132,7 @@ std::vector<std::pair<int, int>> RequestProcessor::loadRequestsFromTracesFile(co
         char *line_start = ptr;
         ptr = static_cast<char *>(memchr(ptr, '\n', end - ptr));
 
-        if (!ptr)
+        if (!ptr || ptr >= end)
             break;
 
         *ptr++ = '\0';
@@ -214,6 +216,7 @@ void RequestProcessor::processAllFilesParallel(ReplicaManager &manager)
 // Process only the first valid file in the folder
 void RequestProcessor::processFirstFile(ReplicaManager &manager)
 {
+    // uint64_t total_requests = 0;
     for (const auto &entry : fs::directory_iterator(folder_path))
     {
         if (entry.is_regular_file())
@@ -232,6 +235,11 @@ void RequestProcessor::processFirstFile(ReplicaManager &manager)
 
             for (const auto &[key, replica] : requests)
             {
+                // if (total_requests % 1000000 == 0)
+                // {
+                //     std::cout << "keys: " << key << "\n";
+                // }
+                // total_requests++;
                 manager.handleRequest(key);
                 completed_requests++;
             }

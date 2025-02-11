@@ -112,7 +112,7 @@ std::vector<std::pair<std::string, uint64_t>> load_sorted_cdf(const std::string 
 
     while (std::getline(file, line))
     {
-        size_t comma_pos = line.find(',');
+        size_t comma_pos = line.find(' ');
         if (comma_pos == std::string::npos)
         {
             throw std::runtime_error("Invalid line format: " + line);
@@ -122,7 +122,8 @@ std::vector<std::pair<std::string, uint64_t>> load_sorted_cdf(const std::string 
         freq = std::stoull(line.substr(comma_pos + 1));
 
         // std::cout << key << " " << freq << std::endl;
-        cdf.emplace_back(freq, key);
+        // cdf.emplace_back(freq, key);
+        cdf.emplace_back(std::stoull(key), std::to_string(freq));
     }
 
     file.close();
@@ -173,8 +174,8 @@ size_t find_optimal_access_rates(std::vector<std::pair<std::string, uint64_t>> &
             best_local = local;
             best_remote = remote;
         }
-        // if (local % 10000 == 0)
-        //     std::cout << "Local: " << local << ", Remote: " << remote << ", Performance: " << performance << std::endl;
+        if (local % 10000 == 0)
+            std::cout << "Local: " << local << ", Remote: " << remote << ", Performance: " << performance << std::endl;
     }
     std::cout << "Best local: " << best_local << ", Best remote: " << best_remote << ", Best performance: " << best_performance << std::endl;
     return best_local;
@@ -288,10 +289,10 @@ void process_workload_fully(const std::string &filepath, uint64_t cache_ns_avg, 
 
 int main(int argc, char *argv[])
 {
-    uint64_t disk_latency = 100, cache_latency = 1, rdma_latency = 50, cache_size = 4467939;
+    uint64_t disk_latency = 200, cache_latency = 1, rdma_latency = 15, cache_size = 4467939;
     size_t total_ops = 851370550;
     size_t total_keys = 4467939;
-    size_t window_size = 10000000;
+    size_t window_size = 2000000;
     size_t window_pct = 10;
     int twitter_wokload = 7;
     if (argc > 1)
@@ -314,11 +315,13 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // process_cdf_direct("/mydata/twitter/7/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
+    // process_cdf_direct("/vectordb1/traces/twitter/19/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
+    process_cdf_direct("/vectordb1/LDC_Cache_Sim/access_frequencies.txt", cache_latency, disk_latency, rdma_latency, cache_size);
 
     // process_workload_fully("/mydata/twitter/7/seq.txt", cache_latency, disk_latency, rdma_latency, cache_size, 2000000);
 
-    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
+    // process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
+    // process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
 
     return 0;
 }

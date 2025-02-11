@@ -52,6 +52,7 @@ public:
     uint64_t get_sum_freq_till_index(uint64_t start, uint64_t end);
     uint64_t calculate_performance(uint64_t water_mark_local, uint64_t water_mark_remote, uint64_t cache_ns_avg, uint64_t disk_ns_avg, uint64_t rdma_ns_avg);
     uint64_t find_optimal_access_rates();
+    void print_cdf_to_file();
     void reset()
     {
         R_opt = 0;

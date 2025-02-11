@@ -6,7 +6,7 @@ BASE_CONFIG='{
   "num_replicas": 3,
   "total_dataset_size": 4467939,
   "requests_per_thread": 10000000,
-  "cache_percentage": 0.33,
+  "cache_percentage": 0.34,
   "rdma_enabled": false,
   "enable_cba": false,
   "cba_update_interval": 10000000,

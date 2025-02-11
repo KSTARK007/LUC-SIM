@@ -1,0 +1,613 @@
+Cache size: 4467939
+Total dataset size: 4467939
+Latency local: 1
+Latency rdma: 15
+Latency disk: 200
+Num replicas: 3
+[                                                  ] 1%[#                                                 ] 2%[#                                                 ] 2%[#                                                 ] 3%[##                                                ] 5%[##                                                ] 5%[###                                               ] 7%[####                                              ] 8%[####                                              ] 8%[####                                              ] 9%[#####                                             ] 10%[#####                                             ] 11%[######                                            ] 12%[######                                            ] 13%[#######                                           ] 14%[#######                                           ] 15%[########                                          ] 16%[########                                          ] 17%[#########                                         ] 18%[#########                                         ] 19%[##########                                        ] 20%[##########                                        ] 21%[###########                                       ] 22%[###########                                       ] 23%[############                                      ] 24%[############                                      ] 25%[#############                                     ] 26%[#############                                     ] 27%[##############                                    ] 28%[##############                                    ] 29%[###############                                   ] 30%[###############                                   ] 31%[################                                  ] 32%[################                                  ] 33%[#################                                 ] 34%[#################                                 ] 35%[##################                                ] 36%[##################                                ] 37%[###################                               ] 38%[###################                               ] 39%[####################                              ] 40%[####################                              ] 41%[#####################                             ] 42%[#####################                             ] 43%[######################                            ] 44%[######################                            ] 45%[#######################                           ] 46%[#######################                           ] 47%[########################                          ] 48%[########################                          ] 49%[#########################                         ] 50%[#########################                         ] 51%[##########################                        ] 52%[##########################                        ] 53%[###########################                       ] 54%[###########################                       ] 55%[############################                      ] 56%[############################                      ] 57%[#############################                     ] 58%[#############################                     ] 59%[##############################                    ] 60%[##############################                    ] 61%[###############################                   ] 62%[###############################                   ] 63%[################################                  ] 64%[################################                  ] 65%[#################################                 ] 66%[#################################                 ] 67%[##################################                ] 68%[##################################                ] 69%[###################################               ] 70%[###################################               ] 71%[####################################              ] 72%[####################################              ] 73%[#####################################             ] 74%[#####################################             ] 75%[######################################            ] 76%[######################################            ] 77%[#######################################           ] 78%[#######################################           ] 79%[########################################          ] 80%[########################################          ] 81%[#########################################         ] 82%[#########################################         ] 83%[##########################################        ] 84%[##########################################        ] 85%[###########################################       ] 86%[###########################################       ] 87%[############################################      ] 88%[############################################      ] 89%[#############################################     ] 90%[#############################################     ] 91%[##############################################    ] 92%[##############################################    ] 93%[###############################################   ] 94%[###############################################   ] 95%[################################################  ] 96%[################################################  ] 97%[################################################# ] 98%[################################################# ] 99%
+Loaded 851370550 requests from /vectordb1/traces/twitter/7/seq.txt using optimized mmap()
+[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 0%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%Local: 0, Remote: 4467939, Performance: 77652404592
+Local: 10000, Remote: 4437939, Performance: 276491025161
+Local: 20000, Remote: 4407939, Performance: 282986829182
+Local: 30000, Remote: 4377939, Performance: 289567076595
+Local: 40000, Remote: 4347939, Performance: 295670650890
+Local: 50000, Remote: 4317939, Performance: 301995525677
+Local: 60000, Remote: 4287939, Performance: 308596996804
+Local: 70000, Remote: 4257939, Performance: 315406974574
+Local: 80000, Remote: 4227939, Performance: 321690568228
+Local: 90000, Remote: 4197939, Performance: 328098846039
+Local: 100000, Remote: 4167939, Performance: 334767627060
+Local: 110000, Remote: 4137939, Performance: 341047464413
+Local: 120000, Remote: 4107939, Performance: 346484188980
+Local: 130000, Remote: 4077939, Performance: 352038538357
+Local: 140000, Remote: 4047939, Performance: 357773868062
+Local: 150000, Remote: 4017939, Performance: 363699170057
+Local: 160000, Remote: 3987939, Performance: 369824042021
+Local: 170000, Remote: 3957939, Performance: 376158739226
+Local: 180000, Remote: 3927939, Performance: 382714231837
+Local: 190000, Remote: 3897939, Performance: 389502268310
+Local: 200000, Remote: 3867939, Performance: 396535445664
+Local: 210000, Remote: 3837939, Performance: 403827287494
+Local: 220000, Remote: 3807939, Performance: 411392330768
+Local: 230000, Remote: 3777939, Performance: 419246222554
+Local: 240000, Remote: 3747939, Performance: 427405828048
+Local: 250000, Remote: 3717939, Performance: 435889351465
+Local: 260000, Remote: 3687939, Performance: 444716471625
+Local: 270000, Remote: 3657939, Performance: 453908494343
+Local: 280000, Remote: 3627939, Performance: 463158760298
+Local: 290000, Remote: 3597939, Performance: 472007716237
+Local: 300000, Remote: 3567939, Performance: 481201200291
+Local: 310000, Remote: 3537939, Performance: 489420459017
+Local: 320000, Remote: 3507939, Performance: 496801770965
+Local: 330000, Remote: 3477939, Performance: 504409138272
+Local: 340000, Remote: 3447939, Performance: 512253106966
+Local: 350000, Remote: 3417939, Performance: 520344889437
+Local: 360000, Remote: 3387939, Performance: 528696417906
+Local: 370000, Remote: 3357939, Performance: 537320403143
+Local: 380000, Remote: 3327939, Performance: 546230399006
+Local: 390000, Remote: 3297939, Performance: 555440873533
+Local: 400000, Remote: 3267939, Performance: 564967287327
+Local: 410000, Remote: 3237939, Performance: 574826180170
+Local: 420000, Remote: 3207939, Performance: 585035266844
+Local: 430000, Remote: 3177939, Performance: 595613543372
+Local: 440000, Remote: 3147939, Performance: 606581404972
+Local: 450000, Remote: 3117939, Performance: 617960777311
+Local: 460000, Remote: 3087939, Performance: 629775262796
+Local: 470000, Remote: 3057939, Performance: 642050303990
+Local: 480000, Remote: 3027939, Performance: 654813366503
+Local: 490000, Remote: 2997939, Performance: 668094144151
+Local: 500000, Remote: 2967939, Performance: 681924789594
+Local: 510000, Remote: 2937939, Performance: 696340174225
+Local: 520000, Remote: 2907939, Performance: 709530654507
+Local: 530000, Remote: 2877939, Performance: 722499171082
+Local: 540000, Remote: 2847939, Performance: 734600321374
+Local: 550000, Remote: 2817939, Performance: 745686255066
+Local: 560000, Remote: 2787939, Performance: 755244154727
+Local: 570000, Remote: 2757939, Performance: 764002467343
+Local: 580000, Remote: 2727939, Performance: 772966297695
+Local: 590000, Remote: 2697939, Performance: 782142965511
+Local: 600000, Remote: 2667939, Performance: 791540142296
+Local: 610000, Remote: 2637939, Performance: 801165872722
+Local: 620000, Remote: 2607939, Performance: 811028597594
+Local: 630000, Remote: 2577939, Performance: 821137178538
+Local: 640000, Remote: 2547939, Performance: 831500924558
+Local: 650000, Remote: 2517939, Performance: 842129620630
+Local: 660000, Remote: 2487939, Performance: 853033558515
+Local: 670000, Remote: 2457939, Performance: 860610998604
+Local: 680000, Remote: 2427939, Performance: 868171465076
+Local: 690000, Remote: 2397939, Performance: 875865904655
+Local: 700000, Remote: 2367939, Performance: 883698629901
+Local: 710000, Remote: 2337939, Performance: 891672066321
+Local: 720000, Remote: 2307939, Performance: 899790654373
+Local: 730000, Remote: 2277939, Performance: 908059153966
+Local: 740000, Remote: 2247939, Performance: 916480344396
+Local: 750000, Remote: 2217939, Performance: 925059143963
+Local: 760000, Remote: 2187939, Performance: 933800822725
+Local: 770000, Remote: 2157939, Performance: 942708570263
+Local: 780000, Remote: 2127939, Performance: 951787851697
+Local: 790000, Remote: 2097939, Performance: 961044521131
+Local: 800000, Remote: 2067939, Performance: 970482245600
+Local: 810000, Remote: 2037939, Performance: 980107118513
+Local: 820000, Remote: 2007939, Performance: 989925665393
+Local: 830000, Remote: 1977939, Performance: 999942110951
+Local: 840000, Remote: 1947939, Performance: 1010163273591
+Local: 850000, Remote: 1917939, Performance: 1020596454077
+Local: 860000, Remote: 1887939, Performance: 1031246531085
+Local: 870000, Remote: 1857939, Performance: 1042121163403
+Local: 880000, Remote: 1827939, Performance: 1053228551066
+Local: 890000, Remote: 1797939, Performance: 1064574342895
+Local: 900000, Remote: 1767939, Performance: 1076167176504
+Local: 910000, Remote: 1737939, Performance: 1088016300223
+Local: 920000, Remote: 1707939, Performance: 1100128273963
+Local: 930000, Remote: 1677939, Performance: 1112512881265
+Local: 940000, Remote: 1647939, Performance: 1125180598884
+[>                                                 ] 1%Local: 950000, Remote: 1617939, Performance: 1138139069833
+Local: 960000, Remote: 1587939, Performance: 1151399426527
+Local: 970000, Remote: 1557939, Performance: 1164973593294
+Local: 980000, Remote: 1527939, Performance: 1178870507500
+Local: 990000, Remote: 1497939, Performance: 1193102898594
+Local: 1000000, Remote: 1467939, Performance: 1207684406920
+Local: 1010000, Remote: 1437939, Performance: 1222625525404
+Local: 1020000, Remote: 1407939, Performance: 1237940886157
+Local: 1030000, Remote: 1377939, Performance: 1253646176799
+Local: 1040000, Remote: 1347939, Performance: 1269753771160
+Local: 1050000, Remote: 1317939, Performance: 1286280583316
+Local: 1060000, Remote: 1287939, Performance: 1303244760187
+Local: 1070000, Remote: 1257939, Performance: 1320660964917
+Local: 1080000, Remote: 1227939, Performance: 1338548868212
+Local: 1090000, Remote: 1197939, Performance: 1356929593135
+Local: 1100000, Remote: 1167939, Performance: 1375820609187
+Local: 1110000, Remote: 1137939, Performance: 1395244943024
+Local: 1120000, Remote: 1107939, Performance: 1415227348162
+Local: 1130000, Remote: 1077939, Performance: 1435788761052
+Local: 1140000, Remote: 1047939, Performance: 1456956328355
+Local: 1150000, Remote: 1017939, Performance: 1478759270628
+Local: 1160000, Remote: 987939, Performance: 1501222843717
+Local: 1170000, Remote: 957939, Performance: 1524379298606
+Local: 1180000, Remote: 927939, Performance: 1548263404134
+Local: 1190000, Remote: 897939, Performance: 1572905847545
+Local: 1200000, Remote: 867939, Performance: 1598345266751
+Local: 1210000, Remote: 837939, Performance: 1624623392832
+Local: 1220000, Remote: 807939, Performance: 1650071271840
+Local: 1230000, Remote: 777939, Performance: 1663961679524
+Local: 1240000, Remote: 747939, Performance: 1678090375768
+Local: 1250000, Remote: 717939, Performance: 1692460904932
+Local: 1260000, Remote: 687939, Performance: 1707077317943
+Local: 1270000, Remote: 657939, Performance: 1721950962288
+Local: 1280000, Remote: 627939, Performance: 1737085907205
+Local: 1290000, Remote: 597939, Performance: 1752486768641
+Local: 1300000, Remote: 567939, Performance: 1768165870168
+Local: 1310000, Remote: 537939, Performance: 1784127886586
+Local: 1320000, Remote: 507939, Performance: 1800378085005
+Local: 1330000, Remote: 477939, Performance: 1816929887981
+Local: 1340000, Remote: 447939, Performance: 1833788671061
+Local: 1350000, Remote: 417939, Performance: 1844637699080
+Local: 1360000, Remote: 387939, Performance: 1844637699080
+Local: 1370000, Remote: 357939, Performance: 1844637699080
+Local: 1380000, Remote: 327939, Performance: 1844637699080
+Local: 1390000, Remote: 297939, Performance: 1844637699080
+Local: 1400000, Remote: 267939, Performance: 1844637699080
+Local: 1410000, Remote: 237939, Performance: 1844637699080
+Local: 1420000, Remote: 207939, Performance: 1844637699080
+Local: 1430000, Remote: 177939, Performance: 1844637699080
+Local: 1440000, Remote: 147939, Performance: 1844637699080
+Local: 1450000, Remote: 117939, Performance: 1844637699080
+Local: 1460000, Remote: 87939, Performance: 1844637699080
+Local: 1470000, Remote: 57939, Performance: 1844637699080
+Local: 1480000, Remote: 27939, Performance: 1844637699080
+Best local: 1346339, Best remote: 428922, Best performance: 1844637883540
+[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%Time taken to compute optimal redundancy: 1.58437s
+[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[>                                                 ] 1%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%Local: 0, Remote: 4467939, Performance: 77652404592
+Local: 10000, Remote: 4437939, Performance: 295268261246
+Local: 20000, Remote: 4407939, Performance: 302826460116
+Local: 30000, Remote: 4377939, Performance: 310436829632
+Local: 40000, Remote: 4347939, Performance: 318432719520
+Local: 50000, Remote: 4317939, Performance: 325955342274
+Local: 60000, Remote: 4287939, Performance: 333659130277
+Local: 70000, Remote: 4257939, Performance: 341735984600
+Local: 80000, Remote: 4227939, Performance: 350213470928
+Local: 90000, Remote: 4197939, Performance: 359122253742
+Local: 100000, Remote: 4167939, Performance: 368179399437
+Local: 110000, Remote: 4137939, Performance: 376682648393
+Local: 120000, Remote: 4107939, Performance: 385499171797
+Local: 130000, Remote: 4077939, Performance: 393830994429
+Local: 140000, Remote: 4047939, Performance: 401051607553
+Local: 150000, Remote: 4017939, Performance: 408512051963
+Local: 160000, Remote: 3987939, Performance: 416255318937
+Local: 170000, Remote: 3957939, Performance: 424297801747
+Local: 180000, Remote: 3927939, Performance: 432657185565
+Local: 190000, Remote: 3897939, Performance: 441352577286
+Local: 200000, Remote: 3867939, Performance: 450404651323
+Local: 210000, Remote: 3837939, Performance: 459835813720
+Local: 220000, Remote: 3807939, Performance: 469670387325
+Local: 230000, Remote: 3777939, Performance: 479934821249
+Local: 240000, Remote: 3747939, Performance: 490657928391
+Local: 250000, Remote: 3717939, Performance: 501871155551
+[=>                                                ] 2%Local: 260000, Remote: 3687939, Performance: 513608891432
+Local: 270000, Remote: 3657939, Performance: 525908818903
+Local: 280000, Remote: 3627939, Performance: 538812319128
+Local: 290000, Remote: 3597939, Performance: 552364936671
+Local: 300000, Remote: 3567939, Performance: 566247279344
+Local: 310000, Remote: 3537939, Performance: 579530252395
+Local: 320000, Remote: 3507939, Performance: 593451090105
+Local: 330000, Remote: 3477939, Performance: 605431977909
+Local: 340000, Remote: 3447939, Performance: 616767861990
+Local: 350000, Remote: 3417939, Performance: 626934867021
+Local: 360000, Remote: 3387939, Performance: 635029787765
+Local: 370000, Remote: 3357939, Performance: 643297581890
+Local: 380000, Remote: 3327939, Performance: 650216770965
+Local: 390000, Remote: 3297939, Performance: 656698072356
+Local: 400000, Remote: 3267939, Performance: 663309884709
+Local: 410000, Remote: 3237939, Performance: 670056190176
+Local: 420000, Remote: 3207939, Performance: 676941134577
+Local: 430000, Remote: 3177939, Performance: 683969035899
+Local: 440000, Remote: 3147939, Performance: 691144393322
+Local: 450000, Remote: 3117939, Performance: 698471896830
+Local: 460000, Remote: 3087939, Performance: 705956437429
+Local: 470000, Remote: 3057939, Performance: 713603118037
+Local: 480000, Remote: 3027939, Performance: 721417265084
+Local: 490000, Remote: 2997939, Performance: 729404440888
+Local: 500000, Remote: 2967939, Performance: 737570456856
+Local: 510000, Remote: 2937939, Performance: 745921387590
+Local: 520000, Remote: 2907939, Performance: 754463585950
+Local: 530000, Remote: 2877939, Performance: 763203699179
+Local: 540000, Remote: 2847939, Performance: 772148686151
+Local: 550000, Remote: 2817939, Performance: 781305835847
+Local: 560000, Remote: 2787939, Performance: 790682787171
+Local: 570000, Remote: 2757939, Performance: 800287550195
+Local: 580000, Remote: 2727939, Performance: 807136083041
+Local: 590000, Remote: 2697939, Performance: 813782521476
+Local: 600000, Remote: 2667939, Performance: 820539914200
+Local: 610000, Remote: 2637939, Performance: 827409912402
+Local: 620000, Remote: 2607939, Performance: 834395882744
+Local: 630000, Remote: 2577939, Performance: 841501439390
+Local: 640000, Remote: 2547939, Performance: 848728468856
+Local: 650000, Remote: 2517939, Performance: 856080669085
+Local: 660000, Remote: 2487939, Performance: 863562007636
+Local: 670000, Remote: 2457939, Performance: 871174641543
+Local: 680000, Remote: 2427939, Performance: 878922643905
+Local: 690000, Remote: 2397939, Performance: 886810382565
+Local: 700000, Remote: 2367939, Performance: 894840326425
+Local: 710000, Remote: 2337939, Performance: 903016974904
+Local: 720000, Remote: 2307939, Performance: 911345150850
+Local: 730000, Remote: 2277939, Performance: 919827683807
+Local: 740000, Remote: 2247939, Performance: 928469559431
+Local: 750000, Remote: 2217939, Performance: 937276119710
+Local: 760000, Remote: 2187939, Performance: 946250612604
+Local: 770000, Remote: 2157939, Performance: 955398580483
+Local: 780000, Remote: 2127939, Performance: 964725959987
+Local: 790000, Remote: 2097939, Performance: 974236486220
+Local: 800000, Remote: 2067939, Performance: 983936341561
+Local: 810000, Remote: 2037939, Performance: 993832146641
+Local: 820000, Remote: 2007939, Performance: 1003928205849
+Local: 830000, Remote: 1977939, Performance: 1014231440506
+Local: 840000, Remote: 1947939, Performance: 1024749261464
+Local: 850000, Remote: 1917939, Performance: 1035486641055
+Local: 860000, Remote: 1887939, Performance: 1046451357671
+Local: 870000, Remote: 1857939, Performance: 1057651739393
+Local: 880000, Remote: 1827939, Performance: 1069093545604
+Local: 890000, Remote: 1797939, Performance: 1080785553616
+Local: 900000, Remote: 1767939, Performance: 1092737161446
+Local: 910000, Remote: 1737939, Performance: 1104955060147
+Local: 920000, Remote: 1707939, Performance: 1117449197288
+Local: 930000, Remote: 1677939, Performance: 1130230225565
+Local: 940000, Remote: 1647939, Performance: 1143305944331
+Local: 950000, Remote: 1617939, Performance: 1156687679691
+Local: 960000, Remote: 1587939, Performance: 1170387563970
+Local: 970000, Remote: 1557939, Performance: 1184414721933
+Local: 980000, Remote: 1527939, Performance: 1198782113126
+Local: 990000, Remote: 1497939, Performance: 1213503625313
+Local: 1000000, Remote: 1467939, Performance: 1228589977379
+Local: 1010000, Remote: 1437939, Performance: 1244056076550
+Local: 1020000, Remote: 1407939, Performance: 1259917906723
+Local: 1030000, Remote: 1377939, Performance: 1276188115914
+Local: 1040000, Remote: 1347939, Performance: 1292883949437
+Local: 1050000, Remote: 1317939, Performance: 1310023911531
+Local: 1060000, Remote: 1287939, Performance: 1327623000339
+Local: 1070000, Remote: 1257939, Performance: 1345701288374
+Local: 1080000, Remote: 1227939, Performance: 1364280332969
+Local: 1090000, Remote: 1197939, Performance: 1383378015983
+Local: 1100000, Remote: 1167939, Performance: 1403017855447
+Local: 1110000, Remote: 1137939, Performance: 1423225137073
+Local: 1120000, Remote: 1107939, Performance: 1444021309039
+Local: 1130000, Remote: 1077939, Performance: 1465434124196
+Local: 1140000, Remote: 1047939, Performance: 1487493461228
+Local: 1150000, Remote: 1017939, Performance: 1510225216674
+Local: 1160000, Remote: 987939, Performance: 1533662396516
+Local: 1170000, Remote: 957939, Performance: 1557840591495
+Local: 1180000, Remote: 927939, Performance: 1582791298835
+Local: 1190000, Remote: 897939, Performance: 1605925201318
+Local: 1200000, Remote: 867939, Performance: 1619081471525
+Local: 1210000, Remote: 837939, Performance: 1632452916324
+Local: 1220000, Remote: 807939, Performance: 1646049410874
+Local: 1230000, Remote: 777939, Performance: 1659874145268
+Local: 1240000, Remote: 747939, Performance: 1673930788640
+Local: 1250000, Remote: 717939, Performance: 1688230014826
+Local: 1260000, Remote: 687939, Performance: 1702775485352
+Local: 1270000, Remote: 657939, Performance: 1717571377334
+Local: 1280000, Remote: 627939, Performance: 1732629258284
+Local: 1290000, Remote: 597939, Performance: 1747953332467
+Local: 1300000, Remote: 567939, Performance: 1763548361083
+Local: 1310000, Remote: 537939, Performance: 1779426915076
+Local: 1320000, Remote: 507939, Performance: 1795593825309
+Local: 1330000, Remote: 477939, Performance: 1812054526604
+Local: 1340000, Remote: 447939, Performance: 1828822720674
+Local: 1350000, Remote: 417939, Performance: 1844637514620
+Local: 1360000, Remote: 387939, Performance: 1844637514620
+Local: 1370000, Remote: 357939, Performance: 1844637514620
+Local: 1380000, Remote: 327939, Performance: 1844637514620
+Local: 1390000, Remote: 297939, Performance: 1844637514620
+Local: 1400000, Remote: 267939, Performance: 1844637514620
+Local: 1410000, Remote: 237939, Performance: 1844637514620
+Local: 1420000, Remote: 207939, Performance: 1844637514620
+Local: 1430000, Remote: 177939, Performance: 1844637514620
+Local: 1440000, Remote: 147939, Performance: 1844637514620
+Local: 1450000, Remote: 117939, Performance: 1844637514620
+Local: 1460000, Remote: 87939, Performance: 1844637514620
+Local: 1470000, Remote: 57939, Performance: 1844637514620
+Local: 1480000, Remote: 27939, Performance: 1844637514620
+Best local: 1349265, Best remote: 420144, Best performance: 1844637699080
+[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%Time taken to compute optimal redundancy: 2.21791s
+[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 2%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%Local: 0, Remote: 4467939, Performance: 77652404592
+Local: 10000, Remote: 4437939, Performance: 335254320540
+Local: 20000, Remote: 4407939, Performance: 345038643643
+Local: 30000, Remote: 4377939, Performance: 353682853105
+Local: 40000, Remote: 4347939, Performance: 362003072873
+Local: 50000, Remote: 4317939, Performance: 370138393864
+Local: 60000, Remote: 4287939, Performance: 378647772380
+Local: 70000, Remote: 4257939, Performance: 387557613910
+Local: 80000, Remote: 4227939, Performance: 396896869192
+Local: 90000, Remote: 4197939, Performance: 406697348458
+Local: 100000, Remote: 4167939, Performance: 416127276701
+Local: 110000, Remote: 4137939, Performance: 425077081545
+Local: 120000, Remote: 4107939, Performance: 433985037641
+Local: 130000, Remote: 4077939, Performance: 442734424342
+Local: 140000, Remote: 4047939, Performance: 451843855022
+Local: 150000, Remote: 4017939, Performance: 461336020684
+Local: 160000, Remote: 3987939, Performance: 471235559987
+Local: 170000, Remote: 3957939, Performance: 481569272788
+Local: 180000, Remote: 3927939, Performance: 492366362428
+Local: 190000, Remote: 3897939, Performance: 503658711341
+Local: 200000, Remote: 3867939, Performance: 515481195495
+Local: 210000, Remote: 3837939, Performance: 527872044173
+Local: 220000, Remote: 3807939, Performance: 540873252926
+Local: 230000, Remote: 3777939, Performance: 553297157020
+Local: 240000, Remote: 3747939, Performance: 565842418712
+Local: 250000, Remote: 3717939, Performance: 576562497566
+Local: 260000, Remote: 3687939, Performance: 586833903459
+Local: 270000, Remote: 3657939, Performance: 597477915527
+Local: 280000, Remote: 3627939, Performance: 608515183342
+Local: 290000, Remote: 3597939, Performance: 619967911038
+Local: 300000, Remote: 3567939, Performance: 631860006409
+Local: 310000, Remote: 3537939, Performance: 644217247503
+Local: 320000, Remote: 3507939, Performance: 657067469149
+Local: 330000, Remote: 3477939, Performance: 670440772265
+Local: 340000, Remote: 3447939, Performance: 683796528425
+Local: 350000, Remote: 3417939, Performance: 695833409041
+Local: 360000, Remote: 3387939, Performance: 706866512869
+Local: 370000, Remote: 3357939, Performance: 717125334958
+Local: 380000, Remote: 3327939, Performance: 727686776169
+Local: 390000, Remote: 3297939, Performance: 736162366847
+Local: 400000, Remote: 3267939, Performance: 744481262809
+Local: 410000, Remote: 3237939, Performance: 752990320619
+Local: 420000, Remote: 3207939, Performance: 761696136036
+Local: 430000, Remote: 3177939, Performance: 770605613418
+Local: 440000, Remote: 3147939, Performance: 779725983982
+Local: 450000, Remote: 3117939, Performance: 789064825383
+Local: 460000, Remote: 3087939, Performance: 798630082709
+Local: 470000, Remote: 3057939, Performance: 808430091025
+Local: 480000, Remote: 3027939, Performance: 818473599598
+Local: 490000, Remote: 2997939, Performance: 828769797951
+Local: 500000, Remote: 2967939, Performance: 838920601760
+Local: 510000, Remote: 2937939, Performance: 846103141422
+Local: 520000, Remote: 2907939, Performance: 853410363567
+Local: 530000, Remote: 2877939, Performance: 860844297753
+Local: 540000, Remote: 2847939, Performance: 868408840978
+Local: 550000, Remote: 2817939, Performance: 876108173181
+Local: 560000, Remote: 2787939, Performance: 883944616184
+Local: 570000, Remote: 2757939, Performance: 891922469104
+Local: 580000, Remote: 2727939, Performance: 900046340988
+Local: 590000, Remote: 2697939, Performance: 908318891158
+Local: 600000, Remote: 2667939, Performance: 916744876589
+Local: 610000, Remote: 2637939, Performance: 925329395083
+Local: 620000, Remote: 2607939, Performance: 934075496936
+Local: 630000, Remote: 2577939, Performance: 942988462414
+Local: 640000, Remote: 2547939, Performance: 952073948156
+Local: 650000, Remote: 2517939, Performance: 961335458913
+Local: 660000, Remote: 2487939, Performance: 970778875412
+Local: 670000, Remote: 2457939, Performance: 980410495853
+Local: 680000, Remote: 2427939, Performance: 990234355156
+Local: 690000, Remote: 2397939, Performance: 1000257025956
+Local: 700000, Remote: 2367939, Performance: 1010485546148
+Local: 710000, Remote: 2337939, Performance: 1020924571555
+Local: 720000, Remote: 2307939, Performance: 1031581475639
+Local: 730000, Remote: 2277939, Performance: 1042464153033
+Local: 740000, Remote: 2247939, Performance: 1053577989738
+Local: 750000, Remote: 2217939, Performance: 1064931290496
+Local: 760000, Remote: 2187939, Performance: 1076532947034
+Local: 770000, Remote: 2157939, Performance: 1088389207864
+Local: 780000, Remote: 2127939, Performance: 1100509466153
+Local: 790000, Remote: 2097939, Performance: 1112903780040
+Local: 800000, Remote: 2067939, Performance: 1125579421735
+Local: 810000, Remote: 2037939, Performance: 1138547063295
+Local: 820000, Remote: 2007939, Performance: 1151818134822
+Local: 830000, Remote: 1977939, Performance: 1165401129767
+Local: 840000, Remote: 1947939, Performance: 1179308231458
+Local: 850000, Remote: 1917939, Performance: 1193552493176
+Local: 860000, Remote: 1887939, Performance: 1208143873332
+Local: 870000, Remote: 1857939, Performance: 1223096352030
+Local: 880000, Remote: 1827939, Performance: 1238424914989
+Local: 890000, Remote: 1797939, Performance: 1254141288397
+Local: 900000, Remote: 1767939, Performance: 1270261602579
+Local: 910000, Remote: 1737939, Performance: 1286803159335
+Local: 920000, Remote: 1707939, Performance: 1303779831786
+Local: 930000, Remote: 1677939, Performance: 1321210341560
+Local: 940000, Remote: 1647939, Performance: 1339114786437
+Local: 950000, Remote: 1617939, Performance: 1357509665129
+Local: 960000, Remote: 1587939, Performance: 1376416845847
+Local: 970000, Remote: 1557939, Performance: 1395859828039
+Local: 980000, Remote: 1527939, Performance: 1415858345709
+Local: 990000, Remote: 1497939, Performance: 1436438119292
+Local: 1000000, Remote: 1467939, Performance: 1457626821788
+Local: 1010000, Remote: 1437939, Performance: 1479448206661
+Local: 1020000, Remote: 1407939, Performance: 1501932752481
+Local: 1030000, Remote: 1377939, Performance: 1525113299847
+Local: 1040000, Remote: 1347939, Performance: 1549018640939
+Local: 1050000, Remote: 1317939, Performance: 1573685188446
+Local: 1060000, Remote: 1287939, Performance: 1599152245420
+Local: 1070000, Remote: 1257939, Performance: 1613553519226
+Local: 1080000, Remote: 1227939, Performance: 1626835734026
+Local: 1090000, Remote: 1197939, Performance: 1640338287114
+Local: 1100000, Remote: 1167939, Performance: 1654064630709
+Local: 1110000, Remote: 1137939, Performance: 1668025050084
+Local: 1120000, Remote: 1107939, Performance: 1682222975717
+Local: 1130000, Remote: 1077939, Performance: 1696662335846
+Local: 1140000, Remote: 1047939, Performance: 1711354262827
+Local: 1150000, Remote: 1017939, Performance: 1726302694743
+Local: 1160000, Remote: 987939, Performance: 1741512106420
+Local: 1170000, Remote: 957939, Performance: 1756994579758
+Local: 1180000, Remote: 927939, Performance: 1772754638081
+Local: 1190000, Remote: 897939, Performance: 1788797385675
+Local: 1200000, Remote: 867939, Performance: 1805135972621
+Local: 1210000, Remote: 837939, Performance: 1821775598979
+Local: 1220000, Remote: 807939, Performance: 1838722096201
+Local: 1230000, Remote: 777939, Performance: 1844637514620
+Local: 1240000, Remote: 747939, Performance: 1844637514620
+Local: 1250000, Remote: 717939, Performance: 1844637514620
+Local: 1260000, Remote: 687939, Performance: 1844637514620
+Local: 1270000, Remote: 657939, Performance: 1844637514620
+Local: 1280000, Remote: 627939, Performance: 1844637514620
+Local: 1290000, Remote: 597939, Performance: 1844637514620
+Local: 1300000, Remote: 567939, Performance: 1844637514620
+Local: 1310000, Remote: 537939, Performance: 1844637514620
+Local: 1320000, Remote: 507939, Performance: 1844637514620
+Local: 1330000, Remote: 477939, Performance: 1844637514620
+Local: 1340000, Remote: 447939, Performance: 1844637514620
+Local: 1350000, Remote: 417939, Performance: 1844637514620
+Local: 1360000, Remote: 387939, Performance: 1844637514620
+Local: 1370000, Remote: 357939, Performance: 1844637514620
+Local: 1380000, Remote: 327939, Performance: 1844637514620
+Local: 1390000, Remote: 297939, Performance: 1844637514620
+Local: 1400000, Remote: 267939, Performance: 1844637514620
+Local: 1410000, Remote: 237939, Performance: 1844637514620
+Local: 1420000, Remote: 207939, Performance: 1844637514620
+Local: 1430000, Remote: 177939, Performance: 1844637514620
+Local: 1440000, Remote: 147939, Performance: 1844637514620
+Local: 1450000, Remote: 117939, Performance: 1844637514620
+Local: 1460000, Remote: 87939, Performance: 1844637514620
+Local: 1470000, Remote: 57939, Performance: 1844637514620
+Local: 1480000, Remote: 27939, Performance: 1844637514620
+Best local: 1223446, Best remote: 797601, Best performance: 1844637699080
+[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%Time taken to compute optimal redundancy: 2.03204s
+[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[=>                                                ] 3%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%Local: 0, Remote: 4467939, Performance: 77652404592
+Local: 10000, Remote: 4437939, Performance: 357250718083
+Local: 20000, Remote: 4407939, Performance: 369581819666
+Local: 30000, Remote: 4377939, Performance: 378273826756
+Local: 40000, Remote: 4347939, Performance: 387165871945
+[==>                                               ] 4%Local: 50000, Remote: 4317939, Performance: 396486029572
+Local: 60000, Remote: 4287939, Performance: 405799662541
+Local: 70000, Remote: 4257939, Performance: 414306190418
+Local: 80000, Remote: 4227939, Performance: 423176842835
+Local: 90000, Remote: 4197939, Performance: 432435825070
+Local: 100000, Remote: 4167939, Performance: 442109027456
+Local: 110000, Remote: 4137939, Performance: 452224727298
+Local: 120000, Remote: 4107939, Performance: 461877618628
+Local: 130000, Remote: 4077939, Performance: 471800665218
+Local: 140000, Remote: 4047939, Performance: 482159449644
+Local: 150000, Remote: 4017939, Performance: 492983317191
+Local: 160000, Remote: 3987939, Performance: 504304308711
+Local: 170000, Remote: 3957939, Performance: 516157477410
+Local: 180000, Remote: 3927939, Performance: 528581251381
+Local: 190000, Remote: 3897939, Performance: 541329674425
+Local: 200000, Remote: 3867939, Performance: 553456821104
+Local: 210000, Remote: 3837939, Performance: 565219092117
+Local: 220000, Remote: 3807939, Performance: 575169927194
+Local: 230000, Remote: 3777939, Performance: 585391336180
+Local: 240000, Remote: 3747939, Performance: 595982609670
+Local: 250000, Remote: 3717939, Performance: 606964193048
+Local: 260000, Remote: 3687939, Performance: 618358066894
+Local: 270000, Remote: 3657939, Performance: 630187893833
+Local: 280000, Remote: 3627939, Performance: 642479182567
+Local: 290000, Remote: 3597939, Performance: 655259471492
+Local: 300000, Remote: 3567939, Performance: 668558534665
+Local: 310000, Remote: 3537939, Performance: 681447944726
+Local: 320000, Remote: 3507939, Performance: 693401977349
+Local: 330000, Remote: 3477939, Performance: 704451620653
+Local: 340000, Remote: 3447939, Performance: 714639962193
+Local: 350000, Remote: 3417939, Performance: 725127788444
+Local: 360000, Remote: 3387939, Performance: 734453291881
+Local: 370000, Remote: 3357939, Performance: 742733389145
+Local: 380000, Remote: 3327939, Performance: 751202311916
+Local: 390000, Remote: 3297939, Performance: 759866593870
+Local: 400000, Remote: 3267939, Performance: 768733073633
+Local: 410000, Remote: 3237939, Performance: 777808912788
+Local: 420000, Remote: 3207939, Performance: 787101615161
+Local: 430000, Remote: 3177939, Performance: 796619047518
+Local: 440000, Remote: 3147939, Performance: 806369461770
+Local: 450000, Remote: 3117939, Performance: 816361518843
+Local: 460000, Remote: 3087939, Performance: 826604314332
+Local: 470000, Remote: 3057939, Performance: 837107406119
+Local: 480000, Remote: 3027939, Performance: 847880844117
+Local: 490000, Remote: 2997939, Performance: 856894619206
+Local: 500000, Remote: 2967939, Performance: 864390253116
+Local: 510000, Remote: 2937939, Performance: 872017561123
+Local: 520000, Remote: 2907939, Performance: 879780630960
+Local: 530000, Remote: 2877939, Performance: 887683846086
+Local: 540000, Remote: 2847939, Performance: 895729687672
+Local: 550000, Remote: 2817939, Performance: 903922671800
+Local: 560000, Remote: 2787939, Performance: 912267639098
+Local: 570000, Remote: 2757939, Performance: 920767433326
+Local: 580000, Remote: 2727939, Performance: 929427059178
+Local: 590000, Remote: 2697939, Performance: 938251878969
+Local: 600000, Remote: 2667939, Performance: 947245157180
+Local: 610000, Remote: 2637939, Performance: 956412458022
+Local: 620000, Remote: 2607939, Performance: 965759741469
+Local: 630000, Remote: 2577939, Performance: 975290761896
+Local: 640000, Remote: 2547939, Performance: 985011726843
+Local: 650000, Remote: 2517939, Performance: 994929283839
+Local: 660000, Remote: 2487939, Performance: 1005047759838
+Local: 670000, Remote: 2457939, Performance: 1015374105278
+Local: 680000, Remote: 2427939, Performance: 1025915762160
+Local: 690000, Remote: 2397939, Performance: 1036677729345
+Local: 700000, Remote: 2367939, Performance: 1047667819079
+Local: 710000, Remote: 2337939, Performance: 1058894395686
+Local: 720000, Remote: 2307939, Performance: 1070363249882
+Local: 730000, Remote: 2277939, Performance: 1082083198535
+Local: 740000, Remote: 2247939, Performance: 1094063682050
+Local: 750000, Remote: 2217939, Performance: 1106311428661
+Local: 760000, Remote: 2187939, Performance: 1118836432402
+Local: 770000, Remote: 2157939, Performance: 1131649395817
+Local: 780000, Remote: 2127939, Performance: 1144758162601
+Local: 790000, Remote: 2097939, Performance: 1158174113756
+Local: 800000, Remote: 2067939, Performance: 1171909440561
+Local: 810000, Remote: 2037939, Performance: 1185973320965
+Local: 820000, Remote: 2007939, Performance: 1200378779759
+Local: 830000, Remote: 1977939, Performance: 1215139774876
+Local: 840000, Remote: 1947939, Performance: 1230267089355
+Local: 850000, Remote: 1917939, Performance: 1245775708482
+Local: 860000, Remote: 1887939, Performance: 1261681700225
+Local: 870000, Remote: 1857939, Performance: 1277997790489
+Local: 880000, Remote: 1827939, Performance: 1294741318628
+Local: 890000, Remote: 1797939, Performance: 1311930890338
+Local: 900000, Remote: 1767939, Performance: 1329581598983
+Local: 910000, Remote: 1737939, Performance: 1347713631224
+Local: 920000, Remote: 1707939, Performance: 1366348667783
+Local: 930000, Remote: 1677939, Performance: 1385504707807
+Local: 940000, Remote: 1647939, Performance: 1405205409015
+Local: 950000, Remote: 1617939, Performance: 1425476208444
+Local: 960000, Remote: 1587939, Performance: 1446338699925
+Local: 970000, Remote: 1557939, Performance: 1467820808771
+Local: 980000, Remote: 1527939, Performance: 1489952600943
+Local: 990000, Remote: 1497939, Performance: 1512760155484
+Local: 1000000, Remote: 1467939, Performance: 1536276693351
+Local: 1010000, Remote: 1437939, Performance: 1560538039368
+Local: 1020000, Remote: 1407939, Performance: 1585575921681
+Local: 1030000, Remote: 1377939, Performance: 1601753163322
+Local: 1040000, Remote: 1347939, Performance: 1614841027712
+Local: 1050000, Remote: 1317939, Performance: 1628144391297
+Local: 1060000, Remote: 1287939, Performance: 1641666575332
+Local: 1070000, Remote: 1257939, Performance: 1655417628231
+Local: 1080000, Remote: 1227939, Performance: 1669400841192
+Local: 1090000, Remote: 1197939, Performance: 1683619992350
+Local: 1100000, Remote: 1167939, Performance: 1698085949150
+Local: 1110000, Remote: 1137939, Performance: 1712802489388
+Local: 1120000, Remote: 1107939, Performance: 1727773915366
+Local: 1130000, Remote: 1077939, Performance: 1743012011681
+Local: 1140000, Remote: 1047939, Performance: 1758521116674
+Local: 1150000, Remote: 1017939, Performance: 1774306135749
+Local: 1160000, Remote: 987939, Performance: 1790379884119
+Local: 1170000, Remote: 957939, Performance: 1806747347722
+Local: 1180000, Remote: 927939, Performance: 1823414128004
+Local: 1190000, Remote: 897939, Performance: 1840394202574
+Local: 1200000, Remote: 867939, Performance: 1844637514620
+Local: 1210000, Remote: 837939, Performance: 1844637514620
+Local: 1220000, Remote: 807939, Performance: 1844637514620
+Local: 1230000, Remote: 777939, Performance: 1844637514620
+Local: 1240000, Remote: 747939, Performance: 1844637514620
+Local: 1250000, Remote: 717939, Performance: 1844637514620
+Local: 1260000, Remote: 687939, Performance: 1844637514620
+Local: 1270000, Remote: 657939, Performance: 1844637514620
+Local: 1280000, Remote: 627939, Performance: 1844637514620
+Local: 1290000, Remote: 597939, Performance: 1844637514620
+Local: 1300000, Remote: 567939, Performance: 1844637514620
+Local: 1310000, Remote: 537939, Performance: 1844637514620
+Local: 1320000, Remote: 507939, Performance: 1844637514620
+Local: 1330000, Remote: 477939, Performance: 1844637514620
+Local: 1340000, Remote: 447939, Performance: 1844637514620
+Local: 1350000, Remote: 417939, Performance: 1844637514620
+Local: 1360000, Remote: 387939, Performance: 1844637514620
+Local: 1370000, Remote: 357939, Performance: 1844637514620
+Local: 1380000, Remote: 327939, Performance: 1844637514620
+Local: 1390000, Remote: 297939, Performance: 1844637514620
+Local: 1400000, Remote: 267939, Performance: 1844637514620
+Local: 1410000, Remote: 237939, Performance: 1844637514620
+Local: 1420000, Remote: 207939, Performance: 1844637514620
+Local: 1430000, Remote: 177939, Performance: 1844637514620
+Local: 1440000, Remote: 147939, Performance: 1844637514620
+Local: 1450000, Remote: 117939, Performance: 1844637514620
+Local: 1460000, Remote: 87939, Performance: 1844637514620
+Local: 1470000, Remote: 57939, Performance: 1844637514620
+Local: 1480000, Remote: 27939, Performance: 1844637514620
+Best local: 1192470, Best remote: 890529, Best performance: 1844637699080
+[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%Time taken to compute optimal redundancy: 1.9623s
+[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 4%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%[==>                                               ] 5%

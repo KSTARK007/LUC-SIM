@@ -52,3 +52,14 @@ bool LRUCache::contains(int key)
     std::lock_guard<std::mutex> lock(cache_mutex);
     return cache.find(key) != cache.end();
 }
+
+void LRUCache::remove(int key)
+{
+    std::lock_guard<std::mutex> lock(cache_mutex);
+    auto it = cache.find(key);
+    if (it != cache.end())
+    {
+        keys.erase(it->second.second);
+        cache.erase(it);
+    }
+}

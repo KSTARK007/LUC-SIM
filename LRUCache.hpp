@@ -22,6 +22,7 @@ public:
     size_t size();
     std::set<int> getKeys();
     bool contains(int key);
+    void remove(int key);
 };
 
 #endif // LRU_CACHE_HPP

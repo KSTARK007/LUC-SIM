@@ -26,11 +26,11 @@ private:
     std::vector<std::unique_ptr<Replica>> replicas;
     uint64_t dataset_size;
     std::mutex manager_mutex;
-    int total_requests = 0;
-    int total_misses = 0;
-    int total_remote_fetches = 0;
-    int failed_remote_fetches = 0;
-    int total_hits = 0;
+    uint64_t total_requests = 0;
+    uint64_t total_misses = 0;
+    uint64_t total_remote_fetches = 0;
+    uint64_t failed_remote_fetches = 0;
+    uint64_t total_hits = 0;
     uint64_t total_keys_admitted = 0;
     bool rdma_enabled = false;
     bool enable_cba = false;
@@ -54,6 +54,8 @@ public:
     int handleRequest(int key, int replica_id = -1);
     void computeAndWriteMetrics(const std::string &filename, float cache_pct, int total_dataset_size);
     void print_optimal_redundanc_to_file(std::string filename);
+    int hashFunction(int key);
+    void deDuplicateCache();
 };
 
 #endif // REPLICA_MANAGER_HPP

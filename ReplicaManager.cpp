@@ -5,7 +5,7 @@
 ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_enabled, bool enable_cba,
                                uint64_t latency_local, uint64_t latency_rdma, uint64_t latency_disk, uint64_t update_interval, uint64_t dataset_size)
     : replica_misses(num_replicas, 0), remote_fetches(num_replicas, 0), cache_contents(num_replicas),
-      rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval)
+      rdma_enabled(rdma_enabled), enable_cba(enable_cba), stop_cba_thread(false), update_interval(update_interval), dataset_size(dataset_size)
 {
     for (int i = 0; i < num_replicas; ++i)
     {
@@ -13,7 +13,7 @@ ReplicaManager::ReplicaManager(int num_replicas, size_t cache_size, bool rdma_en
     }
     if (enable_cba)
     {
-        cba = std::make_unique<CostBenefitAnalyzer>(num_replicas, cache_size * num_replicas, cache_size, latency_local, latency_rdma, latency_disk);
+        cba = std::make_unique<CostBenefitAnalyzer>(num_replicas, dataset_size, cache_size, latency_local, latency_rdma, latency_disk);
     }
 }
 
@@ -153,6 +153,7 @@ void ReplicaManager::runCBAUpdater()
         std::chrono::duration<double> elapsed = end_time - start_time;
         std::cout << "Time taken to compute optimal redundancy: " << elapsed.count() << "s\n";
         // std::cout << "Optimal redundancy level: " << best_optimal_redundancy.back() << std::endl;
+        deDuplicateCache();
     }
     cba->reset();
     return;
@@ -172,4 +173,36 @@ void ReplicaManager::print_optimal_redundanc_to_file(std::string filename)
         file << redundancy << std::endl;
     }
     file.close();
+}
+int ReplicaManager::hashFunction(int key)
+{
+    return key % replicas.size();
+}
+
+void ReplicaManager::deDuplicateCache()
+{
+    // std::lock_guard<std::mutex> lock(manager_mutex);
+
+    for (int i = 0; i < replicas.size(); ++i)
+    {
+        std::vector<int> keysToRemove;
+        std::set<int> currentKeys = replicas[i]->cache.getKeys();
+
+        for (int key : currentKeys)
+        {
+            int assigned_replica = hashFunction(key);
+
+            // If this key does not belong to this replica and is not needed anymore, remove it
+            if (assigned_replica != i && !(enable_cba && cba->shouldCacheLocally(std::to_string(key))))
+            {
+                keysToRemove.push_back(key);
+            }
+        }
+
+        // Remove unnecessary keys
+        for (int key : keysToRemove)
+        {
+            replicas[i]->cache.remove(key);
+        }
+    }
 }
