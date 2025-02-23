@@ -1,0 +1,9 @@
+Sorensen Similarity: 0.861595
+Average Latency: 3.34706
+Dataset Coverage: 0.434115
+Replica Utilization: 0.434115
+Overall Miss Ratio: 0.00795614
+Remote Hit Ratio: 0
+Local Miss Ratio: 0.00795614
+Individual Replica Miss Ratios: 0.0026525 0.00265153 0.0026521 
+Total Keys Admitted: 0
