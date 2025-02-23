@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Define window percentages, workload numbers, and total keys & operations
-WINDOW_PCTS=(1 2 5 10 15 20 25)       # Percentages of total keys
+WINDOW_PCTS=(1 2 5 10 15 20 25 100)       # Percentages of total keys
 # WINDOW_PCTS=(10)       # Percentages of total keys
 # WORKLOAD_NUMBERS=(7)      # Workload dataset numbers
 # TOTAL_KEYS=4467939              # Total keys available
 # TOTAL_OPS=851370550             # Total operations
-WORKLOAD_NUMBERS=(19)      # Workload dataset numbers
-TOTAL_KEYS=328491867              # Total keys available
-TOTAL_OPS=1503296677             # Total operations
+WORKLOAD_NUMBERS=$1      # Workload dataset numbers
+TOTAL_KEYS=$2              # Total keys available
+TOTAL_OPS=$3             # Total operations
 
 # Directory to store logs
 LOG_DIR="cba_simulation_logs"

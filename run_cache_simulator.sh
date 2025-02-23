@@ -1,7 +1,10 @@
 #!/bin/bash
-WORKLOAD_NUMBER=19
-DATASET_SIZE=328491867
-CBA_UPDATE_INTERVAL=75500000
+# WORKLOAD_NUMBER=19
+# DATASET_SIZE=328491867
+# CBA_UPDATE_INTERVAL=75500000
+WORKLOAD_NUMBER=$1
+DATASET_SIZE=$2
+CBA_UPDATE_INTERVAL=$3
 
 CONFIG_FILE="config.json"
 
@@ -21,7 +24,7 @@ generate_config() {
         --argjson latency_local 1 \
         --argjson latency_rdma 19 \
         --argjson latency_disk 296 \
-        --arg workload_folder "/vectordb1/traces/twitter/$WORKLOAD_NUMBER" \
+        --arg workload_folder "/mydata/traces/twitter/$WORKLOAD_NUMBER" \
         '{
             num_threads: $num_threads,
             num_replicas: $num_replicas,
@@ -63,39 +66,6 @@ if ! command -v jq &> /dev/null; then
     echo "Error: jq is not installed. Please install jq to run this script."
     exit 1
 fi
-
-# Start all simulations in parallel using screen
-run_simulator true true
-run_simulator true false
-run_simulator false false
-
-WORKLOAD_NUMBER=14
-DATASET_SIZE=33297138
-CBA_UPDATE_INTERVAL=48800000
-
-run_simulator true true
-run_simulator true false
-run_simulator false false
-
-WORKLOAD_NUMBER=22
-DATASET_SIZE=185544835
-CBA_UPDATE_INTERVAL=54800000
-
-run_simulator true true
-run_simulator true false
-run_simulator false false
-
-WORKLOAD_NUMBER=26
-DATASET_SIZE=12230676
-CBA_UPDATE_INTERVAL=5800000
-
-run_simulator true true
-run_simulator true false
-run_simulator false false
-
-WORKLOAD_NUMBER=47
-DATASET_SIZE=1892212
-CBA_UPDATE_INTERVAL=74800000
 
 run_simulator true true
 run_simulator true false

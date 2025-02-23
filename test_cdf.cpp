@@ -112,7 +112,8 @@ std::vector<std::pair<std::string, uint64_t>> load_sorted_cdf(const std::string 
 
     while (std::getline(file, line))
     {
-        size_t comma_pos = line.find(' ');
+        // size_t comma_pos = line.find(' ');
+        size_t comma_pos = line.find(',');
         if (comma_pos == std::string::npos)
         {
             throw std::runtime_error("Invalid line format: " + line);
@@ -123,7 +124,7 @@ std::vector<std::pair<std::string, uint64_t>> load_sorted_cdf(const std::string 
 
         // std::cout << key << " " << freq << std::endl;
         // cdf.emplace_back(freq, key);
-        cdf.emplace_back(std::stoull(key), std::to_string(freq));
+        cdf.emplace_back(freq, std::to_string(freq));
     }
 
     file.close();
@@ -260,10 +261,15 @@ void process_workload_in_windows(const std::string &filepath, uint64_t cache_ns_
     auto cba_results_file = fs::path(filepath).parent_path() / cba_filename;
 
     std::ofstream file(cba_results_file);
+    float average = 0.0;
+    int sum = 0;
     for (size_t i = 0; i < cba_results.size(); i++)
     {
-        file << cba_results[i] << std::endl;
+        // file << cba_results[i] << std::endl;
+        sum += cba_results[i];
     }
+    average = (float)sum / cba_results.size();
+    file << average << std::endl;
     file.close();
 }
 
@@ -289,9 +295,9 @@ void process_workload_fully(const std::string &filepath, uint64_t cache_ns_avg, 
 
 int main(int argc, char *argv[])
 {
-    uint64_t disk_latency = 200, cache_latency = 1, rdma_latency = 15, cache_size = 4467939;
-    size_t total_ops = 851370550;
-    size_t total_keys = 4467939;
+    uint64_t disk_latency = 296, cache_latency = 1, rdma_latency = 19, cache_size = 267311;
+    size_t total_ops = 655685972;
+    size_t total_keys = 267311;
     size_t window_size = 2000000;
     size_t window_pct = 10;
     int twitter_wokload = 7;
@@ -305,23 +311,23 @@ int main(int argc, char *argv[])
         window_pct = std::stoull(argv[1]);
         twitter_wokload = std::stoi(argv[2]);
         total_keys = std::stoull(argv[3]);
+        cache_size = total_keys;
         total_ops = std::stoull(argv[4]);
         window_size = total_ops * window_pct / 100;
     }
-    std::string workload_folder = "/vectordb1/traces/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
+    std::string workload_folder = "/mydata/traces/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
     if (!fs::exists(workload_folder))
     {
         std::cout << "Workload file not found: " << workload_folder << std::endl;
         return 1;
     }
 
-    // process_cdf_direct("/vectordb1/traces/twitter/19/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
-    process_cdf_direct("/vectordb1/LDC_Cache_Sim/access_frequencies.txt", cache_latency, disk_latency, rdma_latency, cache_size);
+    // process_cdf_direct("/mydata/traces/twitter/8/freq.txt", cache_latency, disk_latency, rdma_latency, cache_size);
+    // process_cdf_direct("/vectordb1/LDC_Cache_Sim/access_frequencies.txt", cache_latency, disk_latency, rdma_latency, cache_size);
 
     // process_workload_fully("/mydata/twitter/7/seq.txt", cache_latency, disk_latency, rdma_latency, cache_size, 2000000);
 
-    // process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
-    // process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
+    process_workload_in_windows(workload_folder, cache_latency, disk_latency, rdma_latency, cache_size, total_ops, window_size);
 
     return 0;
 }
