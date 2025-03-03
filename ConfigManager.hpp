@@ -23,6 +23,7 @@ public:
     int latency_rdma;
     int latency_disk;
     std::string workload_folder;
+    std::string cache_type;
 
     ConfigManager(const std::string &config_file);
     void loadConfig(const std::string &config_file);

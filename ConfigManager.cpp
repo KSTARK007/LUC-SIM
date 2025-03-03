@@ -36,6 +36,7 @@ void ConfigManager::loadConfig(const std::string &config_file)
     latency_rdma = config["latency_rdma"];
     latency_disk = config["latency_disk"];
     workload_folder = config["workload_folder"];
+    cache_type = config["cache_type"];
 
     updateCacheSize();
 }

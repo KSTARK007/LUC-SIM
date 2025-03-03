@@ -1,18 +1,18 @@
 {
   "num_threads": 1,
   "num_replicas": 3,
-  "total_dataset_size": 199757312,
+  "total_dataset_size": 328491867,
   "requests_per_thread": 10000000,
   "cache_percentage": 0.34,
-  "rdma_enabled": true,
-  "enable_cba": true,
+  "rdma_enabled": 1,
+  "enable_cba": 2,
   "enable_de_duplication": false,
   "is_access_rate_fixed": false,
   "fixed_access_rate_value": 1000000,
-  "cba_update_interval": 59999729.7,
+  "cba_update_interval": 75500000,
   "latency_local": 1,
   "latency_rdma": 19,
   "latency_disk": 296,
-  "workload_folder": "/vectordb1/traces/alibaba/2020",
-  "cache_type": "LRU"
+  "workload_folder": "/vectordb1/traces/meta/19",
+  "cache_type": "S3FIFO"
 }

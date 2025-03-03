@@ -1,13 +1,14 @@
 #ifndef LRU_CACHE_HPP
 #define LRU_CACHE_HPP
 
+#include "CacheBase.hpp"
 #include <unordered_map>
 #include <list>
 #include <mutex>
 #include <vector>
 #include <set>
 
-class LRUCache
+class LRUCache : public CacheBase
 {
 private:
     size_t capacity;
@@ -17,12 +18,12 @@ private:
 
 public:
     LRUCache(size_t cap);
-    int get(int key);
-    void put(int key, int value);
-    size_t size();
-    std::set<int> getKeys();
-    bool contains(int key);
-    void remove(int key);
+    int get(int key) override;
+    void put(int key, int value) override;
+    size_t size() override;
+    std::set<int> getKeys() override;
+    bool contains(int key) override;
+    void remove(int key) override;
 };
 
 #endif // LRU_CACHE_HPP

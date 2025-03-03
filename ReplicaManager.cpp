@@ -9,9 +9,10 @@ ReplicaManager::ReplicaManager(ConfigManager &config)
       enable_de_duplication(enable_de_duplication), is_access_rate_fixed(config.is_access_rate_fixed)
 {
     workload_folder = config.workload_folder;
+    cache_type = config.cache_type;
     for (int i = 0; i < config.num_replicas; ++i)
     {
-        replicas.emplace_back(std::make_unique<Replica>(i, config.cache_size));
+        replicas.emplace_back(std::make_unique<Replica>(i, config.cache_size, cache_type));
     }
     if (is_access_rate_fixed)
     {
@@ -91,7 +92,7 @@ int ReplicaManager::handleRequest(int key, int replica_id)
                         if (shouldCacheLocally(std::to_string(key)))
                         {
                             total_keys_admitted++;
-                            replicas[primary_replica_id]->cache.put(key, key);
+                            replicas[primary_replica_id]->cache->put(key, key);
                         }
                     }
                     else
@@ -99,7 +100,7 @@ int ReplicaManager::handleRequest(int key, int replica_id)
                         if (cba->shouldCacheLocally(std::to_string(key)))
                         {
                             total_keys_admitted++;
-                            replicas[primary_replica_id]->cache.put(key, key);
+                            replicas[primary_replica_id]->cache->put(key, key);
                         }
                     }
                 }
@@ -109,7 +110,7 @@ int ReplicaManager::handleRequest(int key, int replica_id)
     }
 
     // Case 3: Key does not exist in any replica (Miss)
-    replicas[primary_replica_id]->cache.put(key, key);
+    replicas[primary_replica_id]->cache->put(key, key);
     total_misses++;
     replica_misses[primary_replica_id]++;
     failed_remote_fetches++;
@@ -138,7 +139,7 @@ void ReplicaManager::computeAndWriteMetrics(const std::string &filename, float c
     // Store cache contents for metrics tracking
     for (int i = 0; i < replicas.size(); ++i)
     {
-        cache_contents[i] = replicas[i]->cache.getKeys();
+        cache_contents[i] = replicas[i]->cache->getKeys();
     }
 
     Metrics metrics(cache_contents, cache_pct, total_dataset_size, overall_miss_ratio, remote_miss_ratio, local_miss_ratio, miss_ratios, total_keys_admitted, avg_latency);
@@ -246,7 +247,7 @@ void ReplicaManager::deDuplicateCache()
     for (int i = 0; i < replicas.size(); ++i)
     {
         std::vector<int> keysToRemove;
-        std::set<int> currentKeys = replicas[i]->cache.getKeys();
+        std::set<int> currentKeys = replicas[i]->cache->getKeys();
 
         for (int key : currentKeys)
         {
@@ -262,7 +263,7 @@ void ReplicaManager::deDuplicateCache()
         // Remove unnecessary keys
         for (int key : keysToRemove)
         {
-            replicas[i]->cache.remove(key);
+            replicas[i]->cache->remove(key);
         }
     }
 }

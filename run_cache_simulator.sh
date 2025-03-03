@@ -2,21 +2,32 @@
 # WORKLOAD_NUMBER=19
 # DATASET_SIZE=328491867
 # CBA_UPDATE_INTERVAL=75500000
+
 WORKLOAD_NUMBER=$1
 DATASET_SIZE=$2
 CBA_UPDATE_INTERVAL=$3
+CACHE_POLICY=$4
+# WORKLOAD=$5
 
+# WORKLOAD_NUMBER=2020
+# DATASET_SIZE=328491867
+# CBA_UPDATE_INTERVAL=75500000.70
+# CACHE_POLICY="LRU"
+WORKLOAD="alibaba"
 CONFIG_FILE="config.json"
 
+echo $WORKLOAD_NUMBER $DATASET_SIZE $CBA_UPDATE_INTERVAL $CACHE_POLICY $WORKLOAD
+
 generate_config() {
+    echo "Generating configuration file..."
     jq -n \
         --argjson num_threads 1 \
         --argjson num_replicas 3 \
         --argjson total_dataset_size "$DATASET_SIZE" \
         --argjson requests_per_thread 10000000 \
         --argjson cache_percentage 0.34 \
-        --argjson rdma_enabled "$1" \
-        --argjson enable_cba "$2" \
+        --argjson rdma_enabled $1 \
+        --argjson enable_cba $2 \
         --argjson enable_de_duplication false \
         --argjson is_access_rate_fixed false \
         --argjson fixed_access_rate_value 1000000 \
@@ -24,7 +35,8 @@ generate_config() {
         --argjson latency_local 1 \
         --argjson latency_rdma 19 \
         --argjson latency_disk 296 \
-        --arg workload_folder "/vectordb1/traces/twitter/$WORKLOAD_NUMBER" \
+        --arg workload_folder "/vectordb1/traces/$WORKLOAD/$WORKLOAD_NUMBER" \
+        --arg cache_policy "$CACHE_POLICY" \
         '{
             num_threads: $num_threads,
             num_replicas: $num_replicas,
@@ -40,8 +52,10 @@ generate_config() {
             latency_local: $latency_local,
             latency_rdma: $latency_rdma,
             latency_disk: $latency_disk,
-            workload_folder: $workload_folder
+            workload_folder: $workload_folder,
+            cache_type: $cache_policy
         }' > "$CONFIG_FILE"
+    echo "Configuration file generated."
 }
 
 # Function to update the JSON file and run the simulator in a screen session

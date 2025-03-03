@@ -20,6 +20,7 @@ add_executable(CacheSimulator
     CostBenefitAnalyzer.cpp
     ConfigManager.cpp
     RequestProcessor.cpp
+    S3FIFOCache.cpp
 )
 
 # Link nlohmann-json if installed via package manager

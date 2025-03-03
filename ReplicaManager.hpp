@@ -5,6 +5,7 @@
 #include "Metrics.hpp"
 #include "CostBenefitAnalyzer.hpp"
 #include "ConfigManager.hpp"
+#include "CacheBase.hpp"
 #include <vector>
 #include <memory>
 #include <mutex>
@@ -52,6 +53,7 @@ private:
     uint64_t latency_rdma;
     uint64_t latency_disk;
     std::string workload_folder;
+    std::string cache_type;
 
     void runCBAUpdater();
 

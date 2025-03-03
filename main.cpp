@@ -38,13 +38,14 @@ int main()
     size_t second_last_slash = folder_path.find_last_of("/", last_slash - 1);
     std::string workload = (second_last_slash != std::string::npos) ? folder_path.substr(second_last_slash + 1, last_slash - second_last_slash - 1) : "unknown";
     std::string workload_number = (last_slash != std::string::npos) ? folder_path.substr(last_slash + 1) : "unknown";
+    std::string cache_policy = config.cache_type;
 
     // Construct directory path: "workload/<workload>/<workload_number>/"
     std::string output_folder = "workload/" + workload + "/" + workload_number;
     fs::create_directories(output_folder);
 
     // Construct filename
-    std::string filename = output_folder + "/workload_" + workload + "_" + workload_number + "_cache_" +
+    std::string filename = output_folder + "/workload_" + workload + "_" + workload_number + "_cache_" + cache_policy + "_" +
                            std::to_string(cache_percent) + "_" + is_rdma + "_" + is_cba + "_access_rate" +
                            is_fixed_access_rate + "_" + is_dedup + ".txt";
     manager.computeAndWriteMetrics(filename, config.cache_percentage, config.total_dataset_size);

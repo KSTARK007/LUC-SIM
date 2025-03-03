@@ -1,0 +1,17 @@
+Summary Statistics for baseline diff (Random vs. CBA):
+count     47.000000
+mean     157.204043
+std       80.479447
+min       78.830000
+25%      118.430000
+50%      134.210000
+75%      167.475000
+max      592.860000
+Name: baseline diff, dtype: float64
+
+Additional Statistics for baseline diff:
+  Mean: 157.20
+  Median: 134.21
+  Min: 78.83
+  Max: 592.86
+  Std Dev: 80.48
