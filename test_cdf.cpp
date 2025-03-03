@@ -315,7 +315,7 @@ int main(int argc, char *argv[])
         total_ops = std::stoull(argv[4]);
         window_size = total_ops * window_pct / 100;
     }
-    std::string workload_folder = "/mydata/traces/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
+    std::string workload_folder = "/vectordb1/traces/twitter/" + std::to_string(twitter_wokload) + "/seq.txt";
     if (!fs::exists(workload_folder))
     {
         std::cout << "Workload file not found: " << workload_folder << std::endl;

@@ -24,7 +24,7 @@ generate_config() {
         --argjson latency_local 1 \
         --argjson latency_rdma 19 \
         --argjson latency_disk 296 \
-        --arg workload_folder "/mydata/traces/twitter/$WORKLOAD_NUMBER" \
+        --arg workload_folder "/vectordb1/traces/twitter/$WORKLOAD_NUMBER" \
         '{
             num_threads: $num_threads,
             num_replicas: $num_replicas,

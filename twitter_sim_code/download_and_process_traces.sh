@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define directories
-TRACE_DIR="/mydata/traces/twitter"
-SIM_DIR="/mydata/LDC_Cache_Sim"
+TRACE_DIR="/vectordb1/traces/twitter"
+SIM_DIR="/vectordb1/LDC_Cache_Sim"
 CODE_DIR="${TRACE_DIR}/code"
 LOG_DIR="${TRACE_DIR}/logs"
 
