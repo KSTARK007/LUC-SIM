@@ -5,20 +5,17 @@
 #include <unordered_map>
 #include <list>
 #include <mutex>
+#include <set>
 
 class S3FIFOCache : public CacheBase
 {
 private:
-    size_t capacity;
-    size_t fifo_size;
-    size_t ghost_size;
+    size_t capacity, fifo_size, ghost_size;
     int move_to_main_threshold;
 
-    std::list<int> small_fifo;
-    std::list<int> main_fifo;
-    std::list<int> ghost_list;
-
+    std::list<int> small_fifo, main_fifo, ghost_list;
     std::unordered_map<int, std::pair<int, std::list<int>::iterator>> cache_map;
+    std::unordered_map<int, std::list<int>::iterator> small_fifo_map, main_fifo_map, ghost_list_map;
     std::unordered_map<int, int> access_count;
 
     mutable std::mutex cache_mutex;

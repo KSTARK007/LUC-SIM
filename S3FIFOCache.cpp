@@ -1,5 +1,4 @@
 #include "S3FIFOCache.hpp"
-#include <bits/algorithmfwd.h>
 #include <algorithm>
 #include <iostream>
 
@@ -17,18 +16,18 @@ int S3FIFOCache::get(int key)
     if (it == cache_map.end())
         return -1; // Cache miss
 
-    // If found in the cache, increase the access count
     access_count[key]++;
 
-    // If it's in the small FIFO, move to the main FIFO on threshold
-    if (std::find(small_fifo.begin(), small_fifo.end(), key) != small_fifo.end())
+    // Move from small FIFO to main FIFO if access count reaches threshold
+    auto sit = small_fifo_map.find(key);
+    if (sit != small_fifo_map.end() && access_count[key] >= move_to_main_threshold)
     {
-        if (access_count[key] >= move_to_main_threshold)
-        {
-            small_fifo.remove(key);
-            main_fifo.push_front(key);
-        }
+        small_fifo.erase(sit->second);
+        small_fifo_map.erase(sit);
+        main_fifo.push_front(key);
+        main_fifo_map[key] = main_fifo.begin();
     }
+
     return it->second.first;
 }
 
@@ -37,18 +36,21 @@ void S3FIFOCache::put(int key, int value)
     std::lock_guard<std::mutex> lock(cache_mutex);
     auto it = cache_map.find(key);
 
-    if (it != cache_map.end()) // Key already exists, update value
+    if (it != cache_map.end()) // Key exists, update value
     {
         it->second.first = value;
         access_count[key]++;
         return;
     }
 
-    // If the key was in the ghost list, promote it directly to the main FIFO
-    if (std::find(ghost_list.begin(), ghost_list.end(), key) != ghost_list.end())
+    // If the key is in the ghost list, promote it directly to main FIFO
+    auto git = ghost_list_map.find(key);
+    if (git != ghost_list_map.end())
     {
-        ghost_list.remove(key);
+        ghost_list.erase(git->second);
+        ghost_list_map.erase(git);
         main_fifo.push_front(key);
+        main_fifo_map[key] = main_fifo.begin();
     }
     else
     {
@@ -58,6 +60,7 @@ void S3FIFOCache::put(int key, int value)
             evictFromSmallFIFO();
         }
         small_fifo.push_front(key);
+        small_fifo_map[key] = small_fifo.begin();
     }
 
     cache_map[key] = {value, small_fifo.begin()};
@@ -71,20 +74,26 @@ void S3FIFOCache::evictFromSmallFIFO()
 
     int evict_key = small_fifo.back();
     small_fifo.pop_back();
+    small_fifo_map.erase(evict_key);
 
-    // If the object has been accessed more than threshold, move it to main FIFO
+    // Move to main FIFO if accessed enough
     if (access_count[evict_key] >= move_to_main_threshold)
     {
         main_fifo.push_front(evict_key);
+        main_fifo_map[evict_key] = main_fifo.begin();
     }
     else
     {
         ghost_list.push_front(evict_key);
+        ghost_list_map[evict_key] = ghost_list.begin();
         if (ghost_list.size() > ghost_size)
         {
+            int remove_key = ghost_list.back();
             ghost_list.pop_back();
+            ghost_list_map.erase(remove_key);
         }
     }
+
     cache_map.erase(evict_key);
     access_count.erase(evict_key);
 }
@@ -96,6 +105,7 @@ void S3FIFOCache::evictFromMainFIFO()
 
     int evict_key = main_fifo.back();
     main_fifo.pop_back();
+    main_fifo_map.erase(evict_key);
     cache_map.erase(evict_key);
     access_count.erase(evict_key);
 }
@@ -131,5 +141,27 @@ void S3FIFOCache::remove(int key)
     {
         cache_map.erase(it);
         access_count.erase(key);
+
+        // Remove from FIFO lists
+        auto sit = small_fifo_map.find(key);
+        if (sit != small_fifo_map.end())
+        {
+            small_fifo.erase(sit->second);
+            small_fifo_map.erase(sit);
+        }
+
+        auto mit = main_fifo_map.find(key);
+        if (mit != main_fifo_map.end())
+        {
+            main_fifo.erase(mit->second);
+            main_fifo_map.erase(mit);
+        }
+
+        auto git = ghost_list_map.find(key);
+        if (git != ghost_list_map.end())
+        {
+            ghost_list.erase(git->second);
+            ghost_list_map.erase(git);
+        }
     }
 }
