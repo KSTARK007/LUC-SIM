@@ -38,12 +38,7 @@ The LDC Cache Simulator models a **distributed caching system** with the followi
 ### Step 1: Install Dependencies
 
 ```bash
-# Quick setup (recommended)
 ./setup.sh
-
-# Or install manually
-sudo apt update
-sudo apt install cmake nlohmann-json3-dev libtbb-dev screen btop jq -y
 ```
 
 ### Step 2: Build the Project
@@ -61,49 +56,53 @@ make -j$(nproc)
 
 ### Step 3: Configure Your Simulation
 
-The simulator uses JSON configuration files. You can:
+**NOTE: This simulator requires workload trace files to run. You must have trace files available before running the simulator.**
 
-**Option A: Use the default configuration**
-```bash
-# Uses config.json with predefined settings
-./build/CacheSimulator config.json
-```
+The traces we used are from the following datasets:
+- Alibaba: https://github.com/alibaba/block-traces
+- Meta: https://cachelib.org/docs/Cache_Library_User_Guides/Cachebench_FB_HW_eval/
+- Twitter: https://github.com/twitter/cache-trace
 
-**Option B: Generate custom configuration**
-```bash
-# Syntax: ./run_cache_simulator.sh <workload_number> <dataset_size> <cba_interval> <cache_policy> <workload_type>
-./run_cache_simulator.sh 1 199757312 59999729.7 LRU alibaba
-```
 
-**Option C: Create your own config.json**
+The simulator **only** runs with JSON configuration files. You must configure `config.json` with the correct parameters:
+
+**Required JSON Configuration Format:**
 ```json
 {
   "num_threads": 1,
   "num_replicas": 3,
-  "total_dataset_size": 199757312,
-  "cache_percentage": 0.34,
-  "rdma_enabled": true,
-  "enable_cba": true,
-  "cache_type": "LRU",
-  "workload_folder": "/path/to/your/traces",
-  "latency_local": 1,
-  "latency_rdma": 19,
-  "latency_disk": 296
+  "total_dataset_size": <dataset_size (int)>,
+  "requests_per_thread": <requests_per_thread (int)>,
+  "cache_percentage": <cache_percentage (0.01-1)>,
+  "rdma_enabled": <true/false>,
+  "enable_cba": <true/false>,
+  "enable_de_duplication": <true/false>,
+  "is_access_rate_fixed": <true/false>,
+  "fixed_access_rate_value": <fixed_access_rate_value (int, default: 100000000)>,
+  "cba_update_interval": <cba_update_interval (int, default: 100000000 [us])>,
+  "latency_local": <latency_local (int, default: 1 [us][number taken from experiments in the paper using real system])>,
+  "latency_rdma": <latency_rdma (int, default: 19 [us][number taken from experiments in the paper using real system])>,
+  "latency_disk": <latency_disk (int, default: 296 [us][number taken from experiments in the paper using real system])>,
+  "workload_folder": "/absolute/path/to/your/trace/files",
+  "cache_type": <LRU/S3FIFO>
 }
 ```
 
-### Step 4: Run Different Simulation Scenarios
+**Critical Requirements:**
+- `workload_folder`: Must point to a directory containing `.txt` trace files
+- `cache_type`: Must be either "LRU" or "S3FIFO"
+- `total_dataset_size`: Should match your actual dataset size
+
+### Step 4: Run the Simulation
 
 ```bash
-# Single simulation
 ./build/CacheSimulator config.json
-
-# Multiple configurations automatically
-./run_cache_simulator.sh 2020 328491867 75500000 S3FIFO alibaba
-
-# CDF analysis for research
-./run_cdf_simulations.sh "1 2 3" 4467939 851370550
 ```
+
+**Other Scripts Available (Advanced):**
+- `run_cache_simulator.sh`: Generates config and runs multiple scenarios
+- `run_cdf_simulations.sh`: Runs CDF analysis experiments
+- These scripts expect specific directory structures and may need modification for your setup
 
 ### Step 5: Monitor Progress
 
@@ -182,36 +181,28 @@ ls plots/
 # Files: histogram_baseline_diff.png, line_plot_baseline_diff.png, scatter_plot_baseline_diff.png
 ```
 
-### Comparing Configurations
-
-To compare different configurations:
-
-1. **Find your result files** in `workload/{dataset}/{number}/`
-2. **Compare hit rates** between different cache policies
-3. **Analyze RDMA impact** by comparing `rdma` vs `no_rdma` files
-4. **Evaluate CBA effectiveness** by comparing `cba` vs `no_cba` files
-
-### Example Analysis
-
-```bash
-# Compare LRU vs S3FIFO for Twitter dataset 1
-grep "Hit Rate" workload/twitter/1/workload_twitter_1_cache_LRU_34_*
-grep "Hit Rate" workload/twitter/1/workload_twitter_1_cache_S3FIFO_34_*
-
-# Check RDMA effectiveness
-grep "Remote Fetches" workload/twitter/1/*rdma*
-grep "Remote Fetches" workload/twitter/1/*no_rdma*
-```
 ---
 
-### Batch Simulations
+### Using Your Own Workload Traces
 
-For research experiments, use the provided scripts:
+**Trace File Requirements:**
+1. Place trace files in a directory
+2. Files must have `.txt` extension  
+3. Update `workload_folder` in config.json to point to this directory
+
+**Directory Structure:**
+```
+/your/trace/directory/
+├── workload_trace_1.txt
+├── workload_trace_2.txt
+└── workload_trace_N.txt
+```
+
+### Batch Simulations (Advanced)
+
+For research experiments, you can modify the provided scripts:
 ```bash
-# Test multiple configurations
-for policy in LRU S3FIFO; do
-  for workload in 1 2 3; do
-    ./run_cache_simulator.sh $workload 199757312 59999729.7 $policy twitter
-  done
-done
+# Note: These scripts expect /vectordb1/traces/ structure
+# You may need to modify paths for your setup
+./run_cache_simulator.sh <workload_number> <dataset_size> <cba_interval> <cache_policy> <workload_type>
 ```
